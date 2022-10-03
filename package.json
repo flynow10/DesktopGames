@@ -1,23 +1,32 @@
 {
-  "name": "snake",
+  "name": "desktopgames",
   "version": "1.0.0",
-  "description": "A desktop application version of my JS snake project",
+  "description": "A collection of games that can be played offline.",
   "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "test": "nodemon ./test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flynow10/snake-electron.git"
   },
   "author": "Flynow10",
-  "license": "MIT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flynow10/snake-electron/issues"
+  },
+  "homepage": "https://github.com/flynow10/snake-electron#readme",
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.63",
-    "@electron-forge/maker-deb": "^6.0.0-beta.63",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
-    "@electron-forge/maker-zip": "^6.0.0-beta.63",
-    "electron": "^18.1.0",
-    "electron-packager": "^15.5.1"
+    "@electron-forge/cli": "^6.0.0-beta.65",
+    "@electron-forge/maker-deb": "^6.0.0-beta.65",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.65",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.65",
+    "@electron-forge/maker-zip": "^6.0.0-beta.65",
+    "electron": "^20.0.2",
+    "express": "^4.18.1"
   },
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0"
@@ -29,7 +38,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "snake"
+            "name": "desktopgames"
           }
         },
         {
