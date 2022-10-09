@@ -5,6 +5,7 @@ import { Manufactory } from "./games/manufactory/manufactory.js";
 import { Minesweeper } from "./games/minesweeper.js";
 import { NoHumanity } from "./games/no_humanity.js";
 import { Snake } from "./games/snake.js";
+import { Tetris } from "./games/tetris.js";
 import { TicTacToe } from "./games/tictactoe/tictactoe.js";
 
 class MenuGame {
@@ -51,6 +52,8 @@ export const manufactory = new MenuGame(
   "Manufactory",
   GameTypes.OnePlayer
 );
+export const tetris = new MenuGame(Tetris, "Tetris", GameTypes.OnePlayer);
+
 export const Games = [
   snake,
   minesweeper,
@@ -58,6 +61,7 @@ export const Games = [
   game2048,
   connect4,
   ticTacToe,
+  tetris,
   // manufactory,
   // battleship,
 ];

@@ -1,6 +1,6 @@
 export const isDebug = true;
 export const debug = {
-  fastStart: string("none"),
+  fastStart: string("Tetris"),
 };
 
 function bool(value) {
