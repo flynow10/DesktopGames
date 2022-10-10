@@ -115,11 +115,23 @@ export class Tetris extends Game {
   heldPiece = -1;
   nextPiece = this.pieceGenerator();
   hasBeenHeld = false;
+  score = 0;
+  gameOver = false;
   constructor(canvas) {
     super(canvas);
-    this.options.whiteBackground = false;
+    this.options.bindRestartKey = true;
     this.options.updateStep = 1000;
     this.afterInit();
+  }
+
+  restart() {
+    this.board = this.getNewBoard();
+    this.currentPiece = this.pieceGenerator();
+    this.heldPiece = -1;
+    this.nextPiece = this.pieceGenerator();
+    this.hasBeenHeld = false;
+    this.score = 0;
+    this.gameOver = false;
   }
 
   get squareSize() {
@@ -147,8 +159,8 @@ export class Tetris extends Game {
   }
 
   draw() {
-    this.drawUI();
     this.drawBoard();
+    this.drawUI();
   }
 
   drawUI() {
@@ -172,6 +184,26 @@ export class Tetris extends Game {
       this.squareSize,
       this.heldPiece
     );
+    this.canvas.getCanvas().font = this.squareSize / 1.5 + "px sans-serif";
+    this.canvas
+      .getCanvas()
+      .fillText(
+        "Score : " + this.score,
+        this.canvas.size - this.squareSize * 4,
+        this.canvas.size - this.squareSize * 2,
+        this.squareSize * 4
+      );
+    if (this.gameOver) {
+      this.canvas.getCanvas().font = this.squareSize * 3 + "px sans-serif";
+      this.canvas.getCanvas().save();
+      this.canvas.setColor(Color.PrimaryColor);
+      this.canvas.getCanvas().textBaseline = "middle";
+      this.canvas.getCanvas().textAlign = "center";
+      this.canvas
+        .getCanvas()
+        .fillText("Game Over", this.canvas.size / 2, this.canvas.size / 2);
+      this.canvas.getCanvas().restore();
+    }
   }
 
   drawPieceDisplay(x, y, piece) {
@@ -294,20 +326,22 @@ export class Tetris extends Game {
   }
 
   update() {
-    if (!this.drop()) {
-      for (let i = 0; i < this.currentPieceShape.length; i++) {
-        for (let j = 0; j < this.currentPieceShape[i].length; j++) {
-          if (this.currentPieceShape[i][j] === 1) {
-            this.board[this.currentPiece.y + i][this.currentPiece.x + j] = 1;
+    if (!this.gameOver) {
+      if (!this.drop()) {
+        for (let i = 0; i < this.currentPieceShape.length; i++) {
+          for (let j = 0; j < this.currentPieceShape[i].length; j++) {
+            if (this.currentPieceShape[i][j] === 1) {
+              this.board[this.currentPiece.y + i][this.currentPiece.x + j] = 1;
+            }
           }
         }
+        this.setNextPiece();
+        this.checkLineClear();
+        this.hasBeenHeld = false;
+        return false;
       }
-      this.setNextPiece();
-      this.checkLineClear();
-      this.hasBeenHeld = false;
-      return false;
+      return true;
     }
-    return true;
   }
 
   pieceGenerator() {
@@ -323,6 +357,9 @@ export class Tetris extends Game {
     if (piece === -1) {
       this.currentPiece = Object.assign({}, this.nextPiece);
       this.nextPiece = this.pieceGenerator();
+      if (this.isCollidingWithBoard()) {
+        this.gameOver = true;
+      }
     } else {
       this.currentPiece = Object.assign(this.pieceGenerator(), { piece });
     }
@@ -341,6 +378,10 @@ export class Tetris extends Game {
         [this.board[j], this.board[j - 1]] = [this.board[j - 1], this.board[j]];
       }
     }
+    var scores = [40, 100, 300, 1200];
+    if (clearLines.length !== 0) {
+      this.score += scores[clearLines.length - 1];
+    }
   }
 
   /**
@@ -348,34 +389,36 @@ export class Tetris extends Game {
    * @param {KeyboardEvent} e
    */
   keyDownEvent(e) {
-    switch (e.code) {
-      case "ArrowUp":
-        this.rotate(1);
-        break;
-      case "ArrowLeft":
-        this.move(-1);
-        break;
-      case "ArrowRight":
-        this.move(1);
-        break;
-      case "ArrowDown":
-        this.lastUpdate = this.updateTime;
-        this.update();
-        break;
-      case "Space":
-        this.lastUpdate = this.updateTime;
-        while (this.update());
-        break;
-      case "Tab":
-        e.preventDefault();
-        if (!this.hasBeenHeld) {
-          this.hasBeenHeld = true;
+    if (!this.gameOver) {
+      switch (e.code) {
+        case "ArrowUp":
+          this.rotate(1);
+          break;
+        case "ArrowLeft":
+          this.move(-1);
+          break;
+        case "ArrowRight":
+          this.move(1);
+          break;
+        case "ArrowDown":
           this.lastUpdate = this.updateTime;
-          var temp = this.heldPiece;
-          this.heldPiece = this.currentPiece.piece;
-          this.setNextPiece(temp);
-        }
-        break;
+          this.update();
+          break;
+        case "Space":
+          this.lastUpdate = this.updateTime;
+          while (this.update());
+          break;
+        case "Tab":
+          e.preventDefault();
+          if (!this.hasBeenHeld) {
+            this.hasBeenHeld = true;
+            this.lastUpdate = this.updateTime;
+            var temp = this.heldPiece;
+            this.heldPiece = this.currentPiece.piece;
+            this.setNextPiece(temp);
+          }
+          break;
+      }
     }
   }
 }
