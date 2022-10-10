@@ -19,6 +19,7 @@ export class Canvas {
     this.ctx = this.canvas.getContext("2d");
 
     this.size = 0;
+    this.fillContainer();
   }
 
   /**
