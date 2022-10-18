@@ -1,6 +1,6 @@
-export const isDebug = false;
+export const isDebug = true;
 export const debug = {
-  fastStart: string("Pong"),
+  fastStart: string("none"),
 };
 
 function bool(value) {

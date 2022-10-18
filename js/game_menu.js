@@ -6,6 +6,7 @@ import { Minesweeper } from "./games/minesweeper.js";
 import { NoHumanity } from "./games/no_humanity.js";
 import { Pong } from "./games/pong.js";
 import { Snake } from "./games/snake.js";
+import { Tag } from "./games/tag/tag.js";
 import { Tetris } from "./games/tetris.js";
 import { TicTacToe } from "./games/tictactoe/tictactoe.js";
 
@@ -55,7 +56,9 @@ export const manufactory = new MenuGame(
 );
 export const tetris = new MenuGame(Tetris, "Tetris", GameTypes.OnePlayer);
 
-export const pong = new MenuGame(Pong, "Pong", GameTypes.OnePlayer);
+export const pong = new MenuGame(Pong, "Pong", GameTypes.TwoPlayer);
+
+export const tag = new MenuGame(Tag, "Tag", GameTypes.TwoPlayer);
 
 export const Games = [
   snake,
@@ -66,6 +69,7 @@ export const Games = [
   ticTacToe,
   tetris,
   pong,
+  // tag,
   // manufactory,
   // battleship,
 ];
