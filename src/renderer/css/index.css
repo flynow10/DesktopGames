@@ -1,0 +1,40 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif;
+  margin: auto;
+  max-width: 38rem;
+  padding: 2rem;
+}
+
+.sidebar {
+  min-width: 60px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.sidebar-tabs{ 
+  background-color: #404040;
+  height: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-tab {
+  width: 60px;
+  height: 60px;
+  background-color: #222;
+}
+.sidebar-tab:not(:last-child)::after {
+  border-top: solid #888 1px;
+  width: 80%;
+  content: "";
+  display: inline-block;
+  margin-top: 100%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
