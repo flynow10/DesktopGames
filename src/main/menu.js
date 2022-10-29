@@ -1,3 +1,5 @@
+import { createWindow } from "./main";
+
 const { app, Menu } = require("electron");
 const isMac = process.platform === "darwin";
 export const template = Menu.buildFromTemplate([
@@ -18,7 +20,34 @@ export const template = Menu.buildFromTemplate([
       ]
     : []),
   {
+    label: "Edit",
+    submenu: [
+      { role: "undo" },
+      { role: "redo" },
+      { type: "separator" },
+      { role: "cut" },
+      { role: "copy" },
+      { role: "paste" },
+      ...(isMac
+        ? [
+            { role: "pasteAndMatchStyle" },
+            { role: "delete" },
+            { role: "selectAll" },
+            { type: "separator" },
+            {
+              label: "Speech",
+              submenu: [{ role: "startSpeaking" }, { role: "stopSpeaking" }],
+            },
+          ]
+        : [{ role: "delete" }, { type: "separator" }, { role: "selectAll" }]),
+    ],
+  },
+  {
     label: "Debug",
-    submenu: [{ role: "toggleDevTools" }],
+    submenu: [
+      { role: "toggleDevTools" },
+      { role: "reload" },
+      { role: "forceReload" },
+    ],
   },
 ]);

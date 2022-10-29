@@ -1,5 +1,12 @@
-const { app, BrowserWindow, Menu } = require("electron");
+const { app, BrowserWindow, Menu, session } = require("electron");
 const { template } = require("./menu");
+const path = require("path");
+const os = require("os");
+
+const vueDevtoolsExtensionPath = path.join(
+  os.homedir(),
+  "/Library/Application Support/Google/Chrome/Default/Extensions/nhdogjmejiglipccpnnnanhbledajbpd/6.4.5_0"
+);
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 // eslint-disable-next-line global-require
@@ -7,7 +14,7 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-const createWindow = () => {
+export const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
@@ -30,7 +37,8 @@ const createWindow = () => {
   // });
 };
 
-const ready = () => {
+const ready = async () => {
+  await session.defaultSession.loadExtension(vueDevtoolsExtensionPath);
   createWindow();
   Menu.setApplicationMenu(template);
 };

@@ -1,0 +1,19 @@
+.game-container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  height: 100%;
+  @include themed() {
+    background-color: t($bg);
+  }
+
+  .tabs {
+    display: flex;
+    @include themed() {
+      border-bottom: 2px solid t($accent-color);
+    }
+    &:empty {
+      border: none;
+    }
+  }
+}
