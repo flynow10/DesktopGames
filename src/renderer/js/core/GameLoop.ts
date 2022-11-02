@@ -6,10 +6,14 @@ export class GameLoop {
   private start: number;
 
   public Start(): void {
-    window.requestAnimationFrame(this.loop);
+    window.requestAnimationFrame((time) => {
+      this.loop(time);
+    });
   }
   private loop(time: number): void {
-    window.requestAnimationFrame(this.loop);
+    window.requestAnimationFrame((time) => {
+      this.loop(time);
+    });
     if (this.start === undefined) {
       this.start = time;
     }

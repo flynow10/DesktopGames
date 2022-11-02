@@ -1,13 +1,25 @@
 <script setup>
 import { Gamepad2, Settings } from "lucide-vue-next";
-import { shallowRef } from "vue";
+import { shallowRef, ref, nextTick } from "vue";
 import GameTab from "./GameTab/GameTab.vue"
-const sidebarComponent = shallowRef(GameTab);
+const sidebarComponent = shallowRef();
+const content = ref();
+const componentElement = ref();
 const onGameTabClick = () => {
   if (sidebarComponent.value === GameTab) {
-    sidebarComponent.value = null;
+    content.value.style.width = "0px";
+    setTimeout(() => {
+      sidebarComponent.value = null;
+    }, 200);
   } else {
     sidebarComponent.value = GameTab;
+    content.value.style.width = "unset";
+    nextTick(() => {
+      content.value.style.width = "0px";
+      nextTick(() => {
+        content.value.style.width = window.getComputedStyle(componentElement.value).width
+      })
+    })
   }
 }
 </script>
@@ -24,8 +36,12 @@ const onGameTabClick = () => {
         <div class="active-indicator"></div>
       </li>
     </ul>
-    <keep-alive>
-      <component :is="sidebarComponent"></component>
-    </keep-alive>
+    <div class="content" ref="content">
+      <div style="width: fit-content; height: 100%;" ref="componentElement">
+        <keep-alive>
+          <component :is="sidebarComponent"></component>
+        </keep-alive>
+      </div>
+    </div>
   </div>
 </template>

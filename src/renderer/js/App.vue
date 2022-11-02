@@ -1,5 +1,5 @@
 <script setup>
-import GameContainer from "./container/GameContainer.vue";
+import Main from "./container/Main.vue";
 import Sidebar from "./sidebar/Sidebar.vue"
 import ThemeManager from "./ThemeManager.vue";
 
@@ -7,6 +7,6 @@ import ThemeManager from "./ThemeManager.vue";
 <template>
   <ThemeManager>
     <Sidebar />
-    <GameContainer />
+    <Main />
   </ThemeManager>
 </template>

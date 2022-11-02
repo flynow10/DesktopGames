@@ -1,10 +1,10 @@
 import { VNode, RendererNode, RendererElement } from "vue";
-import { Game, GameMetadata, GameCatagories } from "./Game";
+import { Game, GameCatagories, GameMetadata } from "./Game";
 
-export class Snake extends Game {
+export class Game2 extends Game {
   public static Metadata: GameMetadata = {
-    name: "Snake",
-    catagories: [GameCatagories.OnePlayer, GameCatagories.Skill],
+    name: "Game2",
+    catagories: [GameCatagories.OnePlayer],
     componentType: "CenteredCanvas",
   };
   constructor() {
@@ -15,8 +15,7 @@ export class Snake extends Game {
 
   public update(dt: number): void {}
 
-  public fixedUpdate(dt: number): void {}
-
   public cleanUp(): void {}
+
   public attach(el: RendererElement): void {}
 }

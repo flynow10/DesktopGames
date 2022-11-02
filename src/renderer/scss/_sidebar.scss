@@ -6,6 +6,12 @@ $sidebar-width: 60px;
   padding: 0;
   height: 100%;
   display: flex;
+  .content {
+    transition: width ease-in-out 0.2s;
+    overflow: hidden;
+    height: 100%;
+    width: 0;
+  }
 }
 
 .sidebar-tabs {
@@ -74,6 +80,8 @@ $sidebar-width: 60px;
 }
 
 .sidebar-popout {
+  height: 100%;
+  width: max-content;
   @include themed() {
     color: t($color);
     background-color: t($bg-secondary);

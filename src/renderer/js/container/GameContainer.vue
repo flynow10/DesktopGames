@@ -1,20 +1,26 @@
-<script setup>
-import { ref } from "vue";
-import { useEventManger } from "../core/EventManager";
+<script>
+import { h, reactive, shallowReactive } from "vue";
 import { Game } from "../core/games/Game";
-import Tab from "./Tab.vue";
-
-const tabs = ref([]);
-const { addEventListener } = useEventManger();
-
-addEventListener("startGame", /** @param {typeof Game} game*/(game) => {
-  tabs.value.push({ title: game.Metadata.name });
-})
+import CenteredCanvas from './game-types/CenteredCanvas.vue';
+export default {
+  setup(props, { expose }) {
+    const components = shallowReactive({
+      CenteredCanvas,
+    });
+    const nodes = reactive([]);
+    const newGame = (component) => {
+      var node = h(components[component]);
+      nodes.push(node);
+      return node;
+    }
+    const removeGame = (index) => {
+      nodes.splice(index, 1);
+    }
+    expose({
+      newGame,
+      removeGame
+    });
+    return () => nodes
+  }
+}
 </script>
-<template>
-  <div class="game-container">
-    <div id="tabs" class="tabs">
-      <Tab v-for="(tab, index) in tabs" :key="index" :title="tab.title" />
-    </div>
-  </div>
-</template>
