@@ -2,7 +2,7 @@ name: Build
 
 on:
   push:
-    branches: [main]
+    branches: [v3.0]
     paths-ignore:
       - "**.md"
       - "**.spec.js"
