@@ -39,6 +39,6 @@
   "dependencies": {
     "electron-preferences": "^2.7.0",
     "lucide-vue-next": "^0.98.0",
-    "sass": "^1.55.0"
+    "sass": "^1.56.0"
   }
 }
