@@ -1,6 +1,6 @@
 # Desktop Games
 
-🕹 A collection of (mostly) offline games
+🕹 A collection of (mostly) offline games  
 [![GitHub Build](https://github.com/flynow10/DesktopGames/actions/workflows/build.yml/badge.svg)](https://github.com/flynow10/DesktopGames/actions/workflows/build.yml)
 
 ## Quick Start
