@@ -28,7 +28,11 @@ const onGameTabClick = () => {
 }
 
 const openSettings = () => {
-  window.electronAPI.openSettings();
+  if (!import.meta.env.VITE_ONE_FILE) {
+    window.electronAPI.openSettings();
+  } else {
+    alert("Settings are disabled on the web version");
+  }
 }
 </script>
 <template>

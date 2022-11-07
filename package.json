@@ -8,7 +8,8 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build && electron-builder"
+    "build": "vue-tsc --noEmit && vite build && electron-builder",
+    "build-onefile": "vue-tsc --noEmit && vite build --mode onefile && node ./scripts/build-onefile.js"
   },
   "engines": {
     "node": "^14.18.0 || >=16.0.0"
@@ -17,6 +18,7 @@
     "@vitejs/plugin-vue": "^3.1.2",
     "electron": "^21.1.0",
     "electron-builder": "^23.3.3",
+    "inliner": "^1.13.1",
     "typescript": "^4.8.4",
     "vite": "^3.2.2",
     "vite-electron-plugin": "^0.5.0",

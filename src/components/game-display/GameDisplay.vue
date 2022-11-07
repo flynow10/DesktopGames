@@ -50,12 +50,13 @@ const startGame = <T extends { new(...args: any[]): Game, Metadata: GameMetadata
 }
 const { addEventListener } = useEventManger();
 addEventListener("startGame", startGame);
-
-window.electronAPI.onCloseTab(() => {
-  if (tabs.value.length > 0 && selectedGame.game !== null) {
-    closeGame(tabs.value.findIndex(tab => tab.isActive));
-  }
-});
+if (!import.meta.env.VITE_ONE_FILE) {
+  window.electronAPI.onCloseTab(() => {
+    if (tabs.value.length > 0 && selectedGame.game !== null) {
+      closeGame(tabs.value.findIndex(tab => tab.isActive));
+    }
+  });
+}
 
 </script>
 <template>
