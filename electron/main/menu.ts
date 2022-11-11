@@ -1,3 +1,4 @@
+import { BrowserWindow } from "electron";
 import { preferences } from "./preferences";
 
 const { app, Menu } = require("electron");
@@ -57,12 +58,56 @@ const debug: Electron.MenuItemConstructorOptions[] = !app.isPackaged
       },
     ]
   : [];
-export function createTemplate(mainWindow) {
+export function createTemplate(mainWindow: BrowserWindow) {
   return Menu.buildFromTemplate([
     ...macApplicationMenu,
     {
-      label: "File",
+      label: "Edit",
       submenu: [
+        { role: "undo" },
+        { role: "redo", accelerator: "CmdOrCtrl+Y" },
+        { type: "separator" },
+        { role: "cut" },
+        { role: "copy" },
+        { role: "paste" },
+        ...macExtraEditOptions,
+      ],
+    },
+    {
+      label: "View",
+      submenu: [
+        {
+          label: "Toggle Zen Mode",
+          accelerator: "CmdOrCtrl+Shift+Z",
+          click() {
+            if (!preferences.prefsWindow) {
+              mainWindow.webContents.send("toggle-zen-mode");
+            }
+          },
+        },
+      ],
+    },
+    {
+      label: "Tab",
+      submenu: [
+        {
+          label: "Select Next Tab",
+          accelerator: "Ctrl+Tab",
+          click() {
+            if (!preferences.prefsWindow) {
+              mainWindow.webContents.send("select-next-tab");
+            }
+          },
+        },
+        {
+          label: "Select Previous Tab",
+          accelerator: "Ctrl+Shift+Tab",
+          click() {
+            if (!preferences.prefsWindow) {
+              mainWindow.webContents.send("select-previous-tab");
+            }
+          },
+        },
         {
           label: "Close Tab",
           accelerator: "CmdOrCtrl+W",
@@ -75,18 +120,6 @@ export function createTemplate(mainWindow) {
           },
         },
         ...(!isMac ? [preferencesMenu] : []),
-      ],
-    },
-    {
-      label: "Edit",
-      submenu: [
-        { role: "undo" },
-        { role: "redo" },
-        { type: "separator" },
-        { role: "cut" },
-        { role: "copy" },
-        { role: "paste" },
-        ...macExtraEditOptions,
       ],
     },
     ...debug,

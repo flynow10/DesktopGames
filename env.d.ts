@@ -14,6 +14,9 @@ declare global {
     EventManager: EventManager;
     electronAPI: {
       onCloseTab: (callback: () => void) => void;
+      onNextTab: (callback: () => void) => void;
+      onPreviousTab: (callback: () => void) => void;
+      onZenMode: (callback: (event: any) => void) => void;
       openSettings: () => void;
       onPreferencesChange: (
         callback: (event: Event, preferences: any) => void

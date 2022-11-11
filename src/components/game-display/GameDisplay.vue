@@ -5,6 +5,10 @@ import { Game, GameMetadata } from "../../core/Game";
 import CenteredCanvas from "./display-types/CenteredCanvas.vue";
 import FullscreenCanvas from "./display-types/FullscreenCanvas.vue";
 import Tab from "./Tab.vue";
+
+const props = defineProps<{
+  zenMode: boolean;
+}>();
 const games = reactive<Game[]>([]);
 const centeredCanvas = ref();
 const fullscreenCanvas = ref();
@@ -56,12 +60,24 @@ if (!import.meta.env.VITE_ONE_FILE) {
       closeGame(tabs.value.findIndex(tab => tab.isActive));
     }
   });
+  window.electronAPI.onNextTab(() => {
+    if (tabs.value.length > 0) {
+      var index = tabs.value.findIndex(tab => tab.isActive);
+      selectGame((index + 1) % tabs.value.length);
+    }
+  });
+  window.electronAPI.onPreviousTab(() => {
+    if (tabs.value.length > 0) {
+      var index = tabs.value.findIndex(tab => tab.isActive);
+      selectGame((index - 1 + tabs.value.length) % tabs.value.length);
+    }
+  });
 }
 
 </script>
 <template>
   <div class="game-container">
-    <div id="tabs" class="tabs">
+    <div id="tabs" class="tabs" v-show="!props.zenMode">
       <Tab v-for="(tab, index) in tabs" :key="index" :title="tab.title" :selected="tab.isActive"
         @click="() => { selectGame(index); }" @close="() => { closeGame(index); }" />
     </div>

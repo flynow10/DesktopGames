@@ -104,6 +104,9 @@ const ready = async () => {
   nativeTheme.addListener("updated", () => {
     win.webContents.send("darkModeUpdated", nativeTheme.shouldUseDarkColors);
   });
+  ipcMain.on("zen-value", (event, value) => {
+    win?.setFullScreen(value);
+  });
 };
 
 app.whenReady().then(ready);

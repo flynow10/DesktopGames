@@ -38,15 +38,19 @@ const openSettings = () => {
 <template>
   <div id="sidebar" class="sidebar">
     <ul class="sidebar-tabs">
-      <li @click="onGameTabClick" :class="'tab' + ((sidebarComponent === GameTab) ? ' selected' : '')" role="button"
-        id="games-tab">
-        <Gamepad2 class="icon" />
-        <div class="active-indicator"></div>
-      </li>
-      <li @click="openSettings" class="tab" role="button">
-        <Settings class="icon" />
-        <div class="active-indicator"></div>
-      </li>
+      <div class="top">
+        <li @click="onGameTabClick" tabindex="-1" :class="'tab' + ((sidebarComponent === GameTab) ? ' selected' : '')"
+          role="button" id="games-tab">
+          <Gamepad2 class="icon" />
+          <div class="active-indicator"></div>
+        </li>
+      </div>
+      <div class="bottom">
+        <li @click="openSettings" tabindex="-1" class="tab" role="button">
+          <Settings class="icon" />
+          <div class="active-indicator"></div>
+        </li>
+      </div>
     </ul>
     <div class="content" ref="content">
       <div style="width: fit-content; height: 100%;" ref="componentElement">

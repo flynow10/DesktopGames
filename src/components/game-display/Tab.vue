@@ -4,6 +4,6 @@ const emits = defineEmits(["close"]);
 </script>
 <template>
   <div :class="'tab' + (props.selected ? ' selected' : '')">
-    {{ props.title }} <button @click.stop="emits('close')">✖</button>
+    {{ props.title }} <button tabindex="-1" @click.stop="emits('close')">✖</button>
   </div>
 </template>
