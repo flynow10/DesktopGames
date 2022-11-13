@@ -15,6 +15,9 @@ contextBridge.exposeInMainWorld("electronAPI", {
   onZenMode: (callback) => {
     ipcRenderer.on("toggle-zen-mode", callback);
   },
+  onToggleGameSidebar: (callback) => {
+    ipcRenderer.on("toggle-game-sidebar", callback);
+  },
   openSettings: () => {
     ipcRenderer.send("showPreferences");
   },

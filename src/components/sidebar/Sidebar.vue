@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { Gamepad2, Settings } from "lucide-vue-next";
-import { useEventManger } from "../../core/EventManager";
+import { useEventManger } from "@/core/EventManager";
 import { shallowRef, ref, nextTick } from "vue";
 import GameTab from "./GameTab.vue"
 const sidebarComponent = shallowRef();
 const content = ref();
 const componentElement = ref();
 const { dispatchEvent } = useEventManger();
-const onGameTabClick = () => {
+const openGameSidebar = () => {
   if (sidebarComponent.value === GameTab) {
     content.value.style.width = "0px";
     setTimeout(() => {
@@ -34,12 +34,17 @@ const openSettings = () => {
     alert("Settings are disabled on the web version");
   }
 }
+if (!import.meta.env.VITE_ONE_FILE) {
+  window.electronAPI.onToggleGameSidebar(() => {
+    openGameSidebar();
+  });
+}
 </script>
 <template>
   <div id="sidebar" class="sidebar">
     <ul class="sidebar-tabs">
       <div class="top">
-        <li @click="onGameTabClick" tabindex="-1" :class="'tab' + ((sidebarComponent === GameTab) ? ' selected' : '')"
+        <li @click="openGameSidebar" tabindex="-1" :class="'tab' + ((sidebarComponent === GameTab) ? ' selected' : '')"
           role="button" id="games-tab">
           <Gamepad2 class="icon" />
           <div class="active-indicator"></div>

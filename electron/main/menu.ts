@@ -85,6 +85,15 @@ export function createTemplate(mainWindow: BrowserWindow) {
             }
           },
         },
+        {
+          label: "Toggle Game Sidebar",
+          accelerator: "CmdOrCtrl+Shift+B",
+          click() {
+            if (!preferences.prefsWindow) {
+              mainWindow.webContents.send("toggle-game-sidebar");
+            }
+          },
+        },
       ],
     },
     {
