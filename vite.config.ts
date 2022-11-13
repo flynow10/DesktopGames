@@ -5,6 +5,7 @@ import electron from "vite-electron-plugin";
 import { customStart } from "vite-electron-plugin/plugin";
 import renderer from "vite-plugin-electron-renderer";
 import pkg from "./package.json";
+import path from "path";
 
 rmSync("dist-electron", { recursive: true, force: true });
 
@@ -47,6 +48,9 @@ export default defineConfig({
   clearScreen: false,
   build: {
     assetsDir: "", // #287
+  },
+  resolve: {
+    alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
   },
 });
 
