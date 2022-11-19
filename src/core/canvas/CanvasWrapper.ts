@@ -1,4 +1,4 @@
-import type { CanvasImage } from "./canvasImage";
+import type { CanvasImage } from "./internal";
 import { Color } from "@/core/utils/Color";
 import { Vector } from "@/core/utils/Vector";
 
