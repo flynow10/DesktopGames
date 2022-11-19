@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Gamepad2, Settings } from "lucide-vue-next";
+import { Gamepad2, Settings, HelpCircle } from "lucide-vue-next";
 import { useEventManger } from "@/core/EventManager";
 import { shallowRef, ref, nextTick } from "vue";
 import GameTab from "./GameTab.vue"
@@ -53,6 +53,10 @@ if (!import.meta.env.VITE_ONE_FILE) {
       <div class="bottom">
         <li @click="openSettings" tabindex="-1" class="tab" role="button">
           <Settings class="icon" />
+          <div class="active-indicator"></div>
+        </li>
+        <li class="tab">
+          <HelpCircle class="icon" />
           <div class="active-indicator"></div>
         </li>
       </div>

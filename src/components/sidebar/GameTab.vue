@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Games } from '../../core/GameList';
+import { Games } from '@/core/GameList';
 import { shallowReactive } from 'vue';
-import { useEventManger } from '../../core/EventManager';
-import { Game } from "../../core/Game";
+import { useEventManger } from '@/core/EventManager';
+import { Game } from "@/core/Game";
 import GameButton from './GameButton.vue';
 const games = shallowReactive(Games);
 const { dispatchEvent } = useEventManger();

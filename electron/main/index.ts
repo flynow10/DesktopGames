@@ -92,17 +92,17 @@ async function createWindow() {
 
 const ready = async () => {
   if (!app.isPackaged) {
-    await session.defaultSession.loadExtension(vueDevtoolsExtensionPath);
+    // await session.defaultSession.loadExtension(vueDevtoolsExtensionPath);
   }
   createWindow();
-  Menu.setApplicationMenu(createTemplate(win));
+  Menu.setApplicationMenu(createTemplate(win as BrowserWindow));
   nativeTheme.themeSource = preferences.value("appearence.theme");
   preferences.on("save", () => {
     nativeTheme.themeSource = preferences.value("appearence.theme");
   });
   ipcMain.handle("getIsDarkTheme", () => nativeTheme.shouldUseDarkColors);
   nativeTheme.addListener("updated", () => {
-    win.webContents.send("darkModeUpdated", nativeTheme.shouldUseDarkColors);
+    win!.webContents.send("darkModeUpdated", nativeTheme.shouldUseDarkColors);
   });
   ipcMain.on("zen-value", (event, value) => {
     win?.setFullScreen(value);

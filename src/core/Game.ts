@@ -7,7 +7,8 @@ export abstract class Game {
     componentType: "custom",
   };
   public readonly gameLoop: GameLoop = new GameLoop();
-  protected get paused(): boolean {
+  public onPause: (() => void)[] = [];
+  public get paused(): boolean {
     return this._paused || !this._isTabVisible;
   }
   protected set paused(value: boolean) {
@@ -16,12 +17,18 @@ export abstract class Game {
   private _paused: boolean = false;
   private _isTabVisible: boolean = false;
   private _gameOptions: GameOptions;
+  private documentBoundListeners: { [key: string]: (event: any) => void } = {};
 
   public constructor(options: Partial<GameOptions> = {}) {
     this._gameOptions = Object.assign({}, defaultOptions, options);
     this.gameLoop.fixedUpdateStep = this._gameOptions.fixedUpdateStep;
     this.gameLoop.onLoop.push(this.internalUpdate.bind(this));
-    this.gameLoop.onFixedLoop.push(this.fixedUpdate.bind(this));
+    this.gameLoop.onFixedLoop.push(this.internalFixedUpdate.bind(this));
+    this.documentBoundListeners["keydown"] = this.internalKeyDown.bind(this);
+    this.documentBoundListeners["keyup"] = this.internalKeyUp.bind(this);
+    for (const key in this.documentBoundListeners) {
+      document.addEventListener(key, this.documentBoundListeners[key]);
+    }
   }
 
   public start(): void {
@@ -46,13 +53,43 @@ export abstract class Game {
       this.fixedUpdate(dt);
     }
   }
+  public internalKeyDown(event: KeyboardEvent): void {
+    if (this._isTabVisible) {
+      if (event.code === "Escape") {
+        this.paused = !this.paused;
+        for (const listener of this.onPause) {
+          listener();
+        }
+        return;
+      }
+
+      if (!this.paused) {
+        if (event.code === "KeyR" && this._gameOptions.bindRestartKey) {
+          this.restart();
+          return;
+        }
+        this.keyDown(event);
+      }
+    }
+  }
+  public internalKeyUp(event: KeyboardEvent): void {
+    if (!this.paused) {
+      this.keyUp(event);
+    }
+  }
   public internalCleanup(): void {
     this.cleanup();
     this.gameLoop.stop();
+    for (const key in this.documentBoundListeners) {
+      document.removeEventListener(key, this.documentBoundListeners[key]);
+    }
   }
   public abstract attach(node: any): void;
   public abstract draw(dt: number): void;
   public abstract update(dt: number): void;
+  public restart(): void {}
+  public keyDown(event: KeyboardEvent): void {}
+  public keyUp(event: KeyboardEvent): void {}
   public fixedUpdate(dt: number): void {}
   public cleanup(): void {}
 }
@@ -79,9 +116,11 @@ export enum GameCatagories {
 export type GameOptions = {
   fixedUpdateStep: number;
   drawWhenPaused: boolean;
+  bindRestartKey: boolean;
 };
 
 const defaultOptions: GameOptions = {
   fixedUpdateStep: (1 / 60) * 1000,
   drawWhenPaused: false,
+  bindRestartKey: true,
 };

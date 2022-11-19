@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import "./assets/scss/index.scss";
-import { EventManager } from "./core/EventManager";
+import { EventManager } from "@/core/EventManager";
+import "@/assets/scss/index.scss";
 
 window.EventManager = new EventManager();
 

@@ -17,6 +17,9 @@ export class GameLoop {
     this._stop = true;
   }
   private loop(time: number): void {
+    if (this._stop) {
+      return;
+    }
     if (this._startTime === -1) {
       this._startTime = time;
     }

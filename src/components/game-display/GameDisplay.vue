@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { computed, reactive, Ref, ref, unref } from "vue";
-import { useEventManger } from "../../core/EventManager";
-import { Game, GameMetadata } from "../../core/Game";
+import { useEventManger } from "@/core/EventManager";
+import { Game, GameMetadata } from "@/core/Game";
 import CenteredCanvas from "./display-types/CenteredCanvas.vue";
 import FullscreenCanvas from "./display-types/FullscreenCanvas.vue";
 import Tab from "./Tab.vue";
+import { Joystick } from "lucide-vue-next";
+import PauseMenu from "./PauseMenu.vue";
 
 const props = defineProps<{
   zenMode: boolean;
@@ -12,6 +14,9 @@ const props = defineProps<{
 const games = reactive<Game[]>([]);
 const centeredCanvas = ref();
 const fullscreenCanvas = ref();
+const pauseMenuUpdate = ref(0);
+
+const { addEventListener, dispatchEvent } = useEventManger();
 
 const displayTypes: { [key: string]: Ref<any> } = {
   "CenteredCanvas": centeredCanvas,
@@ -36,6 +41,7 @@ const selectGame = (tabIndex: number | null) => {
   games.forEach(game => {
     game.selected(game === selectedGame.game)
   })
+  dispatchEvent("switchGame", selectedGame.game);
 }
 const closeGame = (tabIndex: number) => {
   var game = games[tabIndex];
@@ -48,11 +54,13 @@ const closeGame = (tabIndex: number) => {
 const startGame = <T extends { new(...args: any[]): Game, Metadata: GameMetadata }>(game: T) => {
   var newGame = new game();
   var index = games.push(newGame) - 1;
+  newGame.onPause.push(() => {
+    pauseMenuUpdate.value++;
+  });
   newGame.attach(unref(displayTypes[game.Metadata.componentType]));
   selectGame(index);
   newGame.start();
 }
-const { addEventListener } = useEventManger();
 addEventListener("startGame", startGame);
 if (!import.meta.env.VITE_ONE_FILE) {
   window.electronAPI.onCloseTab(() => {
@@ -81,9 +89,17 @@ if (!import.meta.env.VITE_ONE_FILE) {
       <Tab v-for="(tab, index) in tabs" :key="index" :title="tab.title" :selected="tab.isActive"
         @click="() => { selectGame(index); }" @close="() => { closeGame(index); }" />
     </div>
-    <div class="display-container">
+    <div class="display-container" v-show="selectedGame.game !== null">
       <CenteredCanvas :selected="selectedGame.displayType === 'CenteredCanvas'" ref="centeredCanvas" />
       <FullscreenCanvas :selected="selectedGame.displayType === 'FullscreenCanvas'" ref="fullscreenCanvas" />
     </div>
+    <div class="no-game-selected" v-show="selectedGame.game === null">
+      <Joystick size="200" />
+      <div class="no-game-selected-text">
+        <h1>No game selected</h1>
+        <p class="text">Click on a game in the sidebar to start playing</p>
+      </div>
+    </div>
+    <PauseMenu v-show="selectedGame.game !== null && selectedGame.game.paused" :key="pauseMenuUpdate" />
   </div>
 </template>
