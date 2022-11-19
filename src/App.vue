@@ -5,7 +5,6 @@ import GameDisplay from '@/components/game-display/GameDisplay.vue';
 
 import { ref } from "vue";
 import { useEventManger } from './core/EventManager';
-import Modal from './components/modal/Modal.vue';
 
 const zenMode = ref(false);
 if (!import.meta.env.VITE_ONE_FILE) {
@@ -16,7 +15,6 @@ if (!import.meta.env.VITE_ONE_FILE) {
     dispatchEvent("zenMode", zenMode.value);
   });
 }
-const show = ref(true);
 </script>
 
 <template>
