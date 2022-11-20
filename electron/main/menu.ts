@@ -18,7 +18,8 @@ const preferencesMenu = {
 const macApplicationMenu: Electron.MenuItemConstructorOptions[] = isMac
   ? [
       {
-        label: "Desktop Games",
+        // To change this menu's name edit the `productName` in the package.json file
+        label: app.name,
         submenu: [
           { role: "about" },
           { type: "separator" },
