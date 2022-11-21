@@ -1,10 +1,11 @@
 import ElectronPreferences from "electron-preferences";
-import { join } from "path";
+import { join, resolve } from "path";
 import { app } from "electron";
 
 export const preferences = new ElectronPreferences({
   dataStore: join(app.getPath("userData"), "preferences.json"),
 
+  debug: true,
   defaults: {
     appearence: {
       theme: "system",
@@ -15,7 +16,6 @@ export const preferences = new ElectronPreferences({
     {
       id: "appearence",
       label: "Appearence",
-      icon: "eye-19",
       form: {
         groups: [
           {
@@ -35,6 +35,10 @@ export const preferences = new ElectronPreferences({
           },
         ],
       },
+    },
+    {
+      id: "twentyFourtyEight",
+      label: "2048",
     },
   ],
 });
