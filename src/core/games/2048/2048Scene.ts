@@ -35,26 +35,30 @@ export class TwentyFourtyEightScene implements Scene {
 
   constructor(game: TwentyFourtyEight) {
     this.game = game;
-    for (let i = 1; i < 2048; i *= 2) {
-      this.blocks[i] = new CanvasImage(300, 300, (image) => {
-        var colorHex = "#000";
-        if (i in TwentyFourtyEightScene.SquareColors) {
-          colorHex = TwentyFourtyEightScene.SquareColors[i];
-        }
-        var color = new Color(colorHex);
-        image.fillRoundedRect(20, 20, 260, 260, 30, color);
-        image.setFontSize(100);
-        image.setFontWeight("bold");
-        image.setTextAlign("center");
-        image.setTextBaseline("middle");
-        image.fillText(
-          150,
-          150,
-          i.toString(),
-          new Color(i > 4 ? "#fff" : "#333")
-        );
-      });
+    for (let i = 1; i <= 2048; i *= 2) {
+      this.blocks[i] = this.createBlock(i);
     }
+  }
+
+  public createBlock(value: number): CanvasImage {
+    return new CanvasImage(300, 300, (image) => {
+      var colorHex = "#000";
+      if (value in TwentyFourtyEightScene.SquareColors) {
+        colorHex = TwentyFourtyEightScene.SquareColors[value];
+      }
+      var color = new Color(colorHex);
+      image.fillRoundedRect(20, 20, 260, 260, 30, color);
+      image.setFontSize(100);
+      image.setFontWeight("bold");
+      image.setTextAlign("center");
+      image.setTextBaseline("middle");
+      image.fillText(
+        150,
+        150,
+        value.toString(),
+        new Color(value > 4 ? "#fff" : "#333")
+      );
+    });
   }
 
   public draw(canvas: Canvas, dt: number) {
@@ -83,25 +87,30 @@ export class TwentyFourtyEightScene implements Scene {
           ) {
             value = oldValue;
           }
+          var block;
           if (value in this.blocks) {
-            var max = this.squareSize / this.blocks[value].width;
-            var scale;
-            var x = j * this.squareSize;
-            var y = i * this.squareSize;
-            if (this.game.addedTiles.includes(index)) {
-              var time = Math.min(
-                1,
-                this.game.timeSinceMove / TwentyFourtyEightScene.AnimationSpeed
-              );
-              scale = max * time;
-              var halfSquare = this.squareSize / 2;
-              x += halfSquare * (1 - time);
-              y += halfSquare * (1 - time);
-            } else {
-              scale = max;
-            }
-            canvas.drawImage(this.blocks[value], x, y, 0, scale);
+            block = this.blocks[value];
+          } else {
+            if (value === 0) continue;
+            block = this.createBlock(value);
           }
+          var max = this.squareSize / block.width;
+          var scale;
+          var x = j * this.squareSize;
+          var y = i * this.squareSize;
+          if (this.game.addedTiles.includes(index)) {
+            var time = Math.min(
+              1,
+              this.game.timeSinceMove / TwentyFourtyEightScene.AnimationSpeed
+            );
+            scale = max * time;
+            var halfSquare = this.squareSize / 2;
+            x += halfSquare * (1 - time);
+            y += halfSquare * (1 - time);
+          } else {
+            scale = max;
+          }
+          canvas.drawImage(block, x, y, 0, scale);
         }
       }
     }
@@ -113,6 +122,13 @@ export class TwentyFourtyEightScene implements Scene {
         var oldPos = new Vector(startIndex % 4, Math.floor(startIndex / 4));
         var newPos = new Vector(endIndex % 4, Math.floor(endIndex / 4));
         var value = this.game.lastBoard[tile.start];
+        var block;
+        if (value in this.blocks) {
+          block = this.blocks[value];
+        } else {
+          if (value === 0) continue;
+          block = this.createBlock(value);
+        }
         var oldPosLerp = oldPos
           .lerp(
             newPos,
@@ -120,11 +136,11 @@ export class TwentyFourtyEightScene implements Scene {
           )
           .mulScalar(this.squareSize);
         canvas.drawImage(
-          this.blocks[value],
+          block,
           oldPosLerp.x,
           oldPosLerp.y,
           0,
-          this.squareSize / this.blocks[value].width
+          this.squareSize / block.width
         );
       }
     }
