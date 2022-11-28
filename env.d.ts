@@ -18,15 +18,13 @@ declare global {
       onPreviousTab: (callback: () => void) => void;
       onZenMode: (callback: (event: any) => void) => void;
       onToggleGameSidebar: (callback: (event: any) => void) => void;
-      openSettings: () => void;
-      onPreferencesChange: (
-        callback: (event: Event, preferences: any) => void
-      ) => void;
       onDarkModeChange: (
         callback: (event: Event, isDarkMode: boolean) => void
       ) => void;
-      getPreferences: () => any;
       getIsDarkTheme: () => boolean;
     };
+  }
+  interface ImportMetaEnv {
+    readonly VITE_ONE_FILE: boolean;
   }
 }

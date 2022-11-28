@@ -7,7 +7,7 @@ export function useEventManger() {
   };
 }
 
-type EventCallback = (event: any) => void;
+type EventCallback = (event?: any) => void;
 export class EventManager {
   private listeners: { [event: string]: EventCallback[] } = {};
   addEventListener(
@@ -32,7 +32,7 @@ export class EventManager {
     };
   }
 
-  dispatchEvent(eventType: string, event: any): boolean {
+  dispatchEvent(eventType: string, event?: any): boolean {
     if (eventType in this.listeners) {
       this.listeners[eventType].forEach((listener) => listener(event));
       return true;

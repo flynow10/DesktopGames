@@ -31,6 +31,11 @@ export abstract class Game {
     }
   }
 
+  protected updateGameOptions(options: Partial<GameOptions>) {
+    this._gameOptions = Object.assign({}, this._gameOptions, options);
+    this.gameLoop.fixedUpdateStep = this._gameOptions.fixedUpdateStep;
+  }
+
   public start(): void {
     this.gameLoop.start();
   }

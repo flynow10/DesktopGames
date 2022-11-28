@@ -3,18 +3,6 @@ import { preferences } from "./preferences";
 
 const { app, Menu } = require("electron");
 const isMac = process.platform === "darwin";
-const preferencesMenu = {
-  label: "Preferences",
-  submenu: [
-    {
-      label: "Settings",
-      accelerator: "CmdOrCtrl+,",
-      click: () => {
-        preferences.show();
-      },
-    },
-  ],
-};
 const macApplicationMenu: Electron.MenuItemConstructorOptions[] = isMac
   ? [
       {
@@ -23,8 +11,6 @@ const macApplicationMenu: Electron.MenuItemConstructorOptions[] = isMac
         submenu: [
           { role: "about" },
           { type: "separator" },
-          { type: "separator" },
-          preferencesMenu,
           { role: "hide" },
           { role: "hideOthers" },
           { role: "unhide" },
@@ -81,18 +67,14 @@ export function createTemplate(mainWindow: BrowserWindow) {
           label: "Toggle Zen Mode",
           accelerator: "CmdOrCtrl+Shift+Z",
           click() {
-            if (!preferences.prefsWindow) {
-              mainWindow.webContents.send("toggle-zen-mode");
-            }
+            mainWindow.webContents.send("toggle-zen-mode");
           },
         },
         {
           label: "Toggle Game Sidebar",
           accelerator: "CmdOrCtrl+Shift+B",
           click() {
-            if (!preferences.prefsWindow) {
-              mainWindow.webContents.send("toggle-game-sidebar");
-            }
+            mainWindow.webContents.send("toggle-game-sidebar");
           },
         },
       ],
@@ -104,32 +86,23 @@ export function createTemplate(mainWindow: BrowserWindow) {
           label: "Select Next Tab",
           accelerator: "Ctrl+Tab",
           click() {
-            if (!preferences.prefsWindow) {
-              mainWindow.webContents.send("select-next-tab");
-            }
+            mainWindow.webContents.send("select-next-tab");
           },
         },
         {
           label: "Select Previous Tab",
           accelerator: "Ctrl+Shift+Tab",
           click() {
-            if (!preferences.prefsWindow) {
-              mainWindow.webContents.send("select-previous-tab");
-            }
+            mainWindow.webContents.send("select-previous-tab");
           },
         },
         {
           label: "Close Tab",
           accelerator: "CmdOrCtrl+W",
           click: () => {
-            if (preferences.prefsWindow) {
-              preferences.close();
-            } else {
-              mainWindow.webContents.send("close-tab");
-            }
+            mainWindow.webContents.send("close-tab");
           },
         },
-        ...(!isMac ? [preferencesMenu] : []),
       ],
     },
     ...debug,

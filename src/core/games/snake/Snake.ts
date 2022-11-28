@@ -1,7 +1,7 @@
-import { GameMetadata, GameCatagories } from "@/core/Game";
+import { GameMetadata, GameCatagories } from "@/core/games/Game";
 import { SnakeScene } from "./SnakeScene";
 import { Vector } from "@/core/utils/Vector";
-import { CanvasGame } from "@/core/CanvasGame";
+import { CanvasGame } from "@/core/games/CanvasGame";
 
 export enum SnakeState {
   Starting,

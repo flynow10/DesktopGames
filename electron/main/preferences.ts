@@ -1,11 +1,10 @@
 import ElectronPreferences from "electron-preferences";
-import { join, resolve } from "path";
-import { app } from "electron";
+import { join } from "path";
+import { app, BrowserWindow, ipcMain, nativeTheme } from "electron";
 
 export const preferences = new ElectronPreferences({
   dataStore: join(app.getPath("userData"), "preferences.json"),
 
-  debug: true,
   defaults: {
     appearence: {
       theme: "system",
@@ -19,7 +18,7 @@ export const preferences = new ElectronPreferences({
       form: {
         groups: [
           {
-            label: "Theme",
+            label: "Appearence",
             fields: [
               {
                 label: "Theme",
@@ -36,9 +35,16 @@ export const preferences = new ElectronPreferences({
         ],
       },
     },
-    {
-      id: "twentyFourtyEight",
-      label: "2048",
-    },
   ],
 });
+
+export function setupPreferences(win: BrowserWindow) {
+  nativeTheme.themeSource = preferences.value("appearence.theme");
+  preferences.on("save", () => {
+    nativeTheme.themeSource = preferences.value("appearence.theme");
+  });
+  ipcMain.handle("getIsDarkTheme", () => nativeTheme.shouldUseDarkColors);
+  nativeTheme.addListener("updated", () => {
+    win!.webContents.send("dark-mode-updated", nativeTheme.shouldUseDarkColors);
+  });
+}

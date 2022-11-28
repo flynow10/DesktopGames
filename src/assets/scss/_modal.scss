@@ -12,8 +12,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    // max-width: 600px;
+    // width: 50%;
+    min-width: 50%;
     @include themed() {
       background-color: t($bg);
     }
@@ -25,7 +25,10 @@
       justify-content: space-between;
       align-items: center;
       .modal-title {
-        font-size: 1.5rem;
+        @include themed() {
+          color: t($color);
+        }
+        font-size: 2rem;
         font-weight: 600;
       }
       .modal-close {

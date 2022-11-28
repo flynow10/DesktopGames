@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Play } from 'lucide-vue-next';
-import { Game } from '@/core/Game';
+import { Game } from '@/core/games/Game';
 const props = defineProps<{ game: typeof Game }>();
 </script>
 <template>

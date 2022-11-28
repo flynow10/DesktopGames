@@ -1,5 +1,5 @@
-import { Canvas } from "./canvas/internal";
-import { Scene } from "./canvas/internal";
+import { Canvas } from "@/core/canvas/internal";
+import { Scene } from "@/core/canvas/internal";
 import { Game, GameOptions } from "./Game";
 
 export abstract class CanvasGame extends Game {

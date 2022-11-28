@@ -26,7 +26,7 @@ import {
 import { release, homedir } from "os";
 import { join } from "path";
 import { createTemplate } from "./menu";
-import { preferences } from "./preferences";
+import { preferences, setupPreferences } from "./preferences";
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -96,14 +96,7 @@ const ready = async () => {
   }
   createWindow();
   Menu.setApplicationMenu(createTemplate(win as BrowserWindow));
-  nativeTheme.themeSource = preferences.value("appearence.theme");
-  preferences.on("save", () => {
-    nativeTheme.themeSource = preferences.value("appearence.theme");
-  });
-  ipcMain.handle("getIsDarkTheme", () => nativeTheme.shouldUseDarkColors);
-  nativeTheme.addListener("updated", () => {
-    win!.webContents.send("darkModeUpdated", nativeTheme.shouldUseDarkColors);
-  });
+  setupPreferences(win as BrowserWindow);
   ipcMain.on("zen-value", (event, value) => {
     win?.setFullScreen(value);
   });

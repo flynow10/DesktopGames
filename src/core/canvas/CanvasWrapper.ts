@@ -596,7 +596,6 @@ export abstract class CanvasWrapper {
     this.reset();
     for (let i = 0; i < this.commands.length; i++) {
       let command = this.commands[i];
-      console.log(command);
       if (command.command in this) {
         var args = [...command.args];
         args[command.argCount] = true;

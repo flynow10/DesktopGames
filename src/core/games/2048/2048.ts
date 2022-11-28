@@ -1,5 +1,5 @@
-import { CanvasGame } from "@/core/CanvasGame";
-import { GameCatagories, GameMetadata } from "@/core/Game";
+import { CanvasGame } from "@/core/games/CanvasGame";
+import { GameCatagories, GameMetadata } from "@/core/games/Game";
 import { TwentyFourtyEightScene } from "./2048Scene";
 
 export class TwentyFourtyEight extends CanvasGame {
@@ -74,7 +74,6 @@ export class TwentyFourtyEight extends CanvasGame {
     didSomething = this.slide(direction) || didSomething;
     didSomething = this.combine(direction) || didSomething;
     didSomething = this.slide(direction) || didSomething;
-    console.log(this.movedTiles);
     if (didSomething) {
       this.addedTiles.push(this.createNewRandomTile() as number);
       if (this.checkLoss()) {

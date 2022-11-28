@@ -28,11 +28,7 @@ const openGameSidebar = () => {
 }
 
 const openSettings = () => {
-  if (!import.meta.env.VITE_ONE_FILE) {
-    window.electronAPI.openSettings();
-  } else {
-    alert("Settings are disabled on the web version");
-  }
+
 }
 if (!import.meta.env.VITE_ONE_FILE) {
   window.electronAPI.onToggleGameSidebar(() => {

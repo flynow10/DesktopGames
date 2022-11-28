@@ -40,13 +40,8 @@ if (canvasElement !== null) {
   canvas.beginPath();
   canvas.roundedRect(51.2, 51.2, 409.6, 409.6, 76.8);
   canvas.clip();
-  canvas.drawImage(
-    twentyFourtyEight,
-    0,
-    0,
-    0,
-    canvas.width / twentyFourtyEight.width
-  );
+  var icon = snake;
+  canvas.drawImage(icon, 0, 0, Math.PI / 2, canvas.width / icon.width);
 } else {
   console.log("element doesn't exist");
 }

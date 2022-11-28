@@ -18,17 +18,8 @@ contextBridge.exposeInMainWorld("electronAPI", {
   onToggleGameSidebar: (callback) => {
     ipcRenderer.on("toggle-game-sidebar", callback);
   },
-  openSettings: () => {
-    ipcRenderer.send("showPreferences");
-  },
-  onPreferencesChange: (callback: (event, preferences) => void) => {
-    ipcRenderer.on("preferencesUpdated", callback);
-  },
   onDarkModeChange: (callback: (event, isDarkMode) => void) => {
-    ipcRenderer.on("darkModeUpdated", callback);
-  },
-  getPreferences: () => {
-    return ipcRenderer.sendSync("getPreferences");
+    ipcRenderer.on("dark-mode-updated", callback);
   },
   getIsDarkTheme: () => ipcRenderer.invoke("getIsDarkTheme"),
 });

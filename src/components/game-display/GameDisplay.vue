@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, Ref, ref, unref } from "vue";
 import { useEventManger } from "@/core/EventManager";
-import { Game, GameMetadata } from "@/core/Game";
+import { Game, GameMetadata } from "@/core/games/Game";
 import CenteredCanvas from "./display-types/CenteredCanvas.vue";
 import FullscreenCanvas from "./display-types/FullscreenCanvas.vue";
 import Tab from "./Tab.vue";
