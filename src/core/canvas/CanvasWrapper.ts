@@ -1,6 +1,7 @@
 import type { CanvasImage } from "./internal";
 import { Color } from "@/core/utils/Color";
 import { Vector } from "@/core/utils/Vector";
+import { AnimatedImage } from "./AnimatedImage";
 
 export abstract class CanvasWrapper {
   protected abstract get context(): CanvasRenderingContext2D;
@@ -288,7 +289,7 @@ export abstract class CanvasWrapper {
   }
 
   public drawImage(
-    image: CanvasImageSource | CanvasImage,
+    image: CanvasImageSource | CanvasImage | AnimatedImage,
     x: number,
     y: number,
     rotation: number = 0,
@@ -564,6 +565,40 @@ export abstract class CanvasWrapper {
         command: "setLineDashOffset",
         args: arguments,
         argCount: 1,
+      });
+    }
+  }
+
+  public setShadowBlur(b: number, quiet = false) {
+    this.context.shadowBlur = b;
+    if (!quiet) {
+      this.commands.push({
+        command: "setShadowBlur",
+        args: arguments,
+        argCount: 1,
+      });
+    }
+  }
+
+  public setShadowColor(c: Color, quiet = false) {
+    this.context.shadowColor = c.getColor();
+    if (!quiet) {
+      this.commands.push({
+        command: "setShadowColor",
+        args: arguments,
+        argCount: 1,
+      });
+    }
+  }
+
+  public setShadowOffset(x: number, y: number, quiet = false) {
+    this.context.shadowOffsetX = x;
+    this.context.shadowOffsetY = y;
+    if (!quiet) {
+      this.commands.push({
+        command: "setShadowOffset",
+        args: arguments,
+        argCount: 2,
       });
     }
   }

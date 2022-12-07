@@ -43,5 +43,18 @@ export abstract class CanvasGame extends Game {
         this.canvas.setPauseImage(this.pauseData);
       }
     });
+    this.canvas.onMouseDown.push((event) => {
+      if (!this.paused) {
+        this.mouseDown(event);
+      }
+    });
+    this.canvas.onMouseUp.push((event) => {
+      if (!this.paused) {
+        this.mouseUp(event);
+      }
+    });
   }
+
+  public mouseDown(event: MouseEvent) {}
+  public mouseUp(event: MouseEvent) {}
 }

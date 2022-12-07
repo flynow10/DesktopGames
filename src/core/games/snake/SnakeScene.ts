@@ -5,7 +5,7 @@ import { Snake, SnakeState } from "./Snake";
 
 export class SnakeScene {
   public head: CanvasImage = new CanvasImage(100, 100, (image) => {
-    image.fillRect(10, 10, 80, 80, new Color("#3d3"));
+    image.fillRoundedRect(10, 10, 80, 80, 5, new Color("#3d3"));
     var radius = 7;
     var pupilSize = (radius * 2) / 3;
     image.setLineWidth(pupilSize);
@@ -20,7 +20,7 @@ export class SnakeScene {
   });
 
   public snakeBody: CanvasImage = new CanvasImage(100, 100, (image) => {
-    image.fillRect(10, 10, 80, 80, new Color("#3d3"));
+    image.fillRoundedRect(10, 10, 80, 80, 5, new Color("#3d3"));
     // image.setLineWidth(3);
     // image.beginPath();
     // image.moveTo(50, 30);
