@@ -1,0 +1,5 @@
+body {
+  @include themed() {
+    background-color: t($bg);
+  }
+}
