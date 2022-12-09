@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "electron-preferences": "https://github.com/flynow10/electron-preferences.git",
-    "lucide-vue-next": "^0.98.0",
+    "lucide-vue-next": "^0.103.0",
     "sass": "^1.56.0"
   }
 }
