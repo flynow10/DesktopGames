@@ -1,0 +1,15 @@
+.theme-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+
+  aspect-ratio: 1/1;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 100%;
+  &:hover {
+    background-color: #aaa;
+  }
+}

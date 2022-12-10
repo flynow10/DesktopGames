@@ -1,5 +1,17 @@
+* {
+  transition: background-color 200ms ease-in-out;
+}
+html,
 body {
-  @include themed() {
-    background-color: t($bg);
-  }
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
 }
