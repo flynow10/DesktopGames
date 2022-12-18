@@ -1,31 +1,45 @@
-import { ReactNode, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { Sun, Moon } from "lucide-react";
 
+export const ThemeContext = createContext("dark");
 export interface ThemeManagerProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 interface ThemeSwitchButtonProps {
-  isDark: boolean,
-  onClick: () => void
+  onClick: () => void;
 }
 function ThemeSwitchButton(props: ThemeSwitchButtonProps) {
-    return (
-      <button onClick={props.onClick} className="theme-icon">
-        {props.isDark ? (<Moon/>) : (<Sun/>)}
-      </button>
-    )
+  const isDark = useContext(ThemeContext) === "dark";
+  return (
+    <button onClick={props.onClick} className="theme-icon">
+      {isDark ? <Moon /> : <Sun />}
+    </button>
+  );
 }
 
 export default function ThemeManager(props: ThemeManagerProps) {
   const [dark, setDark] = useState(false);
 
-  const themeClass = (dark ? "theme--dark" : "theme--light");
+  const themeClass = dark ? "theme--dark" : "theme--light";
+
+  useEffect(() => {
+    document.documentElement.classList.add(themeClass);
+    return () => {
+      document.documentElement.classList.remove(themeClass);
+    };
+  }, [themeClass]);
 
   return (
-    <div className={"theme-manager " + themeClass}>
+    <ThemeContext.Provider value={dark ? "dark" : "light"}>
       {props.children}
-      <ThemeSwitchButton isDark={dark} onClick={() => setDark(!dark)}/>
-    </div>
-  )
+      <ThemeSwitchButton onClick={() => setDark(!dark)} />
+    </ThemeContext.Provider>
+  );
 }

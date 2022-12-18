@@ -6,10 +6,9 @@ process.env.PUBLIC = import_electron.app.isPackaged ? process.env.DIST : (0, imp
 const preload = (0, import_path.join)(__dirname, "../preload/preload.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = (0, import_path.join)(process.env.DIST, "index.html");
-var win;
 const createWindow = () => {
-  win = new import_electron.BrowserWindow({
-    title: "Main window",
+  const win = new import_electron.BrowserWindow({
+    title: "Desktop Games",
     maximizable: true,
     fullscreenable: true,
     webPreferences: {
@@ -32,7 +31,6 @@ const createWindow = () => {
 };
 import_electron.app.whenReady().then(createWindow);
 import_electron.app.on("window-all-closed", () => {
-  win = null;
   if (process.platform !== "darwin")
     import_electron.app.quit();
 });

@@ -1,9 +1,9 @@
-function App() {
-  return(
-    <>
-    
-    </>
-  )
-}
+import TabBar from "./tabs/TabBar";
 
-export default App
+export default function App() {
+  return (
+    <>
+      <TabBar />
+    </>
+  );
+}

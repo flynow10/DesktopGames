@@ -1,5 +1,6 @@
 {
   "name": "desktopgames-react",
+  "productName": "Desktop Games",
   "private": true,
   "version": "0.0.0",
   "main": "dist-electron/electron/main/main.js",
@@ -9,11 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/react-transition-group": "^4.4.5",
+    "@types/uuid": "^9.0.0",
+    "classnames": "^2.3.2",
     "electron": "^22.0.0",
     "lucide-react": "^0.104.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.56.2"
+    "react-transition-group": "^4.4.5",
+    "sass": "^1.56.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.12",

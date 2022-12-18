@@ -10,10 +10,10 @@ process.env.PUBLIC = app.isPackaged
 const preload = join(__dirname, "../preload/preload.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
-var win;
+
 const createWindow = () => {
-  win = new BrowserWindow({
-    title: "Main window",
+  const win = new BrowserWindow({
+    title: "Desktop Games",
     maximizable: true,
     fullscreenable: true,
     webPreferences: {
@@ -40,6 +40,5 @@ const createWindow = () => {
 app.whenReady().then(createWindow);
 
 app.on("window-all-closed", () => {
-  win = null;
   if (process.platform !== "darwin") app.quit();
 });

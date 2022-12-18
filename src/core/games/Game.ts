@@ -1,11 +1,6 @@
 import { GameLoop } from "./GameLoop";
 
 export abstract class Game {
-  public static readonly Metadata: GameMetadata = {
-    name: "Unknown",
-    catagories: [],
-    componentType: "custom",
-  };
   public readonly gameLoop: GameLoop = new GameLoop();
   public onPause: (() => void)[] = [];
   public get paused(): boolean {
@@ -17,15 +12,16 @@ export abstract class Game {
   private _paused: boolean = false;
   private _isTabVisible: boolean = false;
   private _gameOptions: GameOptions;
-  private documentBoundListeners: { [key: string]: (event: any) => void } = {};
+  private documentBoundListeners: { [key: string]: (event: any) => void } = {
+    keydown: this.internalKeyDown.bind(this),
+    keyup: this.internalKeyUp.bind(this),
+  };
 
   public constructor(options: Partial<GameOptions> = {}) {
     this._gameOptions = Object.assign({}, defaultOptions, options);
     this.gameLoop.fixedUpdateStep = this._gameOptions.fixedUpdateStep;
     this.gameLoop.onLoop.push(this.internalUpdate.bind(this));
     this.gameLoop.onFixedLoop.push(this.internalFixedUpdate.bind(this));
-    this.documentBoundListeners["keydown"] = this.internalKeyDown.bind(this);
-    this.documentBoundListeners["keyup"] = this.internalKeyUp.bind(this);
     for (const key in this.documentBoundListeners) {
       document.addEventListener(key, this.documentBoundListeners[key]);
     }
@@ -60,12 +56,14 @@ export abstract class Game {
   }
   public internalKeyDown(event: KeyboardEvent): void {
     if (this._isTabVisible) {
-      if (event.code === "Escape") {
-        this.paused = !this.paused;
-        for (const listener of this.onPause) {
-          listener();
+      if (this._gameOptions.isPauseable) {
+        if (event.code === "Escape") {
+          this.paused = !this.paused;
+          for (const listener of this.onPause) {
+            listener();
+          }
+          return;
         }
-        return;
       }
 
       if (!this.paused) {
@@ -99,17 +97,6 @@ export abstract class Game {
   public cleanup(): void {}
 }
 
-export type GameMetadata = {
-  name: string;
-  catagories: GameCatagories[];
-  componentType: GameComponentNames;
-};
-
-export type GameComponentNames =
-  | "CenteredCanvas"
-  | "FullscreenCanvas"
-  | "custom";
-
 export enum GameCatagories {
   OnePlayer,
   TwoPlayer,
@@ -122,10 +109,12 @@ export type GameOptions = {
   fixedUpdateStep: number;
   drawWhenPaused: boolean;
   bindRestartKey: boolean;
+  isPauseable: boolean;
 };
 
 const defaultOptions: GameOptions = {
   fixedUpdateStep: (1 / 60) * 1000,
   drawWhenPaused: false,
   bindRestartKey: true,
+  isPauseable: true,
 };

@@ -1,0 +1,102 @@
+.tab-container {
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+  @include themed() {
+    color: color($text);
+  }
+}
+
+.tab-bar-new-tab {
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  border: none;
+  @include themed() {
+    background-color: octave-change(color($bg), 1);
+    color: color($text);
+  }
+
+  & .new-tab-icon {
+    transform: scale(1);
+    transition: transform 100ms;
+  }
+  &:hover {
+    & .new-tab-icon {
+      transform: scale(1.2);
+    }
+    @include themed() {
+      background-color: octave-change(color($bg), 1);
+    }
+  }
+}
+
+$transition-time: 150ms;
+.tab-bar-item {
+  user-select: none;
+  padding: 1vh;
+  flex-grow: 1;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: none;
+
+  @include themed() {
+    background-color: octave-change(color($bg), 3);
+  }
+
+  &.tab-bar-item-enter {
+    flex-grow: 0;
+  }
+  &.tab-bar-item-enter-active {
+    flex-grow: 1;
+    transition: flex-grow $transition-time;
+  }
+  &.tab-bar-item-exit {
+    flex-grow: 1;
+    max-width: 100%;
+  }
+  &.tab-bar-item-exit-active {
+    flex-grow: 0;
+    max-width: 0%;
+    transition: flex-grow $transition-time, max-width $transition-time;
+  }
+
+  &.tab-active {
+    @include themed() {
+      background-color: color($bg);
+    }
+  }
+  &:not(.tab-active):hover {
+    @include themed() {
+      background-color: octave-change(color($bg), 1);
+    }
+  }
+
+  &:not(:last-of-type) {
+    border-right: 1px solid;
+
+    @include themed() {
+      border-color: color($text);
+    }
+  }
+}
+
+.tab-close-button {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  float: right;
+  border-radius: 10%;
+
+  @include themed() {
+    color: color($text);
+  }
+
+  &:hover {
+    @include themed() {
+      background-color: octave-change(color($bg), 4);
+    }
+  }
+}
