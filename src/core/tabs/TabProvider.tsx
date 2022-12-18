@@ -76,7 +76,7 @@ export default function TabProvider(props: TabProviderProps) {
         setActiveTab(action.id);
       }
       default: {
-        throw "Unsupported action for updating tabs!";
+        throw new Error("Unsupported action for updating tabs!");
       }
     }
   };

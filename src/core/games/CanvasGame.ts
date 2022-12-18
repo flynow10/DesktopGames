@@ -7,7 +7,7 @@ export abstract class CanvasGame extends Game {
   protected abstract _scene: Scene;
   public get canvas(): Canvas {
     if (this._canvas === null) {
-      throw "Canvas is not set!";
+      throw new Error("Canvas is not set!");
     }
     return this._canvas;
   }
