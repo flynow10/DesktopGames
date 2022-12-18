@@ -1,0 +1,15 @@
+{
+  "tabs": [
+    {
+      "id": "uuid",
+      "type": "new | game | settings | statistics"
+    }
+  ],
+  "games": [
+    {
+      "tabId": "uuid",
+      "name": "Snake",
+      "component": "Canvas" // React Component
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+.theme-icon {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 10px;
+  transition: color 200ms;
+  aspect-ratio: 1/1;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 100%;
+  &:hover {
+    @include themed() {
+      background-color: octave-change(color($bg), 2);
+    }
+  }
+  @include themed() {
+    color: color($text);
+  }
+}

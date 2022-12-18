@@ -1,0 +1,65 @@
+// @mixin themed() {
+//   @each $theme, $map in $themes {
+//     .theme--#{$theme} & {
+//       $theme-map: () !global;
+//       @each $key, $submap in $map {
+//         $value: map-get(map-get($themes, $theme), "#{$key}");
+//         $theme-map: map-merge(
+//           $theme-map,
+//           (
+//             $key: $value,
+//           )
+//         ) !global;
+//       }
+//       @content;
+//       $theme-map: null !global;
+//     }
+//   }
+// }
+
+@mixin themed() {
+  @each $theme, $map in $themes {
+    .theme--#{$theme} & {
+      $isLight: $theme == "light" !global;
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), "#{$key}");
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+      @content;
+      $isLight: null !global;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function color($light, $dark: null) {
+  @if (type-of($light) == string) {
+    @return map-get($theme-map, $light);
+  } @else {
+    @if ($isLight) {
+      @return $light;
+    } @else {
+      @return $dark;
+    }
+  }
+}
+
+@function octave-change($color, $change: 0) {
+  // @if (not $isLight) {
+  //   $change: -$change;
+  // }
+  @if ($change == 0) {
+    @return $color;
+  }
+  @if ($change > 0) {
+    @return shade-color($color, $change * 10%);
+  } @else {
+    @return tint-color($color, abs($change) * 10%);
+  }
+}
