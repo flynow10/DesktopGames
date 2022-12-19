@@ -3,6 +3,7 @@ import { ReactNode, useContext } from "react";
 import { TabType } from "@/core/tabs/Tab";
 import NewTab from "./new-tab/NewTab";
 import classNames from "classnames";
+import GamePage from "./games/GamePage";
 
 export default function PageDisplay() {
   const { tabs, activeTab: activeTabId } = useContext(TabContext);
@@ -11,7 +12,11 @@ export default function PageDisplay() {
 
     switch (tab.type) {
       case TabType.New: {
-        component = <NewTab />;
+        component = <NewTab tabId={tab.id} />;
+        break;
+      }
+      case TabType.Game: {
+        component = <GamePage id={tab.id} />;
         break;
       }
       default: {

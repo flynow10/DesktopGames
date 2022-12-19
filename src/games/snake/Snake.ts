@@ -1,7 +1,6 @@
-import { GameMetadata, GameCatagories } from "../Game";
 import { SnakeScene } from "./SnakeScene";
 import { Vector } from "@/core/utils/Vector";
-import { CanvasGame } from "../../core/game/CanvasGame";
+import { CanvasGame } from "@/core/game/CanvasGame";
 
 export enum SnakeState {
   Starting,
@@ -11,11 +10,6 @@ export enum SnakeState {
 export type SnakeDirection = "up" | "down" | "left" | "right";
 
 export class Snake extends CanvasGame {
-  public static Metadata: GameMetadata = {
-    name: "Snake",
-    catagories: [GameCatagories.OnePlayer, GameCatagories.Skill],
-    componentType: "CenteredCanvas",
-  };
   public static BoardSize: number = 9;
   public static Speed: number = 200;
   public static readonly OppositeDirection: {
@@ -124,7 +118,7 @@ export class Snake extends CanvasGame {
   }
 
   public fixedUpdate(dt: number): void {
-    if (this.gameState == SnakeState.Playing) {
+    if (this.gameState === SnakeState.Playing) {
       this.newDirection();
       this.lastHeadPosition = this.head;
       var direction = Snake.DirectionMap[this.direction];

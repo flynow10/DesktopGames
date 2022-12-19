@@ -15,6 +15,7 @@
     "classnames": "^2.3.2",
     "electron": "^22.0.0",
     "lucide-react": "^0.104.1",
+    "minisearch": "^6.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-transition-group": "^4.4.5",
@@ -26,6 +27,8 @@
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
+    "eslint": "^8.30.0",
+    "eslint-config-react-app": "^7.0.1",
     "typescript": "^4.6.4",
     "vite": "^3.2.3",
     "vite-electron-plugin": "^0.5.2"

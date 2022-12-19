@@ -4,13 +4,16 @@ export abstract class Game {
   public readonly gameLoop: GameLoop = new GameLoop();
   public onPause: (() => void)[] = [];
   public get paused(): boolean {
-    return this._paused || !this._isTabVisible;
+    return (
+      this._gameOptions.isPauseable && (this._paused || !this._isTabVisible)
+    );
   }
   protected set paused(value: boolean) {
     this._paused = value;
   }
   private _paused: boolean = false;
   private _isTabVisible: boolean = false;
+
   private _gameOptions: GameOptions;
   private documentBoundListeners: { [key: string]: (event: any) => void } = {
     keydown: this.internalKeyDown.bind(this),
@@ -87,7 +90,6 @@ export abstract class Game {
       document.removeEventListener(key, this.documentBoundListeners[key]);
     }
   }
-  public abstract attach(node: any): void;
   public abstract draw(dt: number): void;
   public abstract update(dt: number): void;
   public restart(): void {}
@@ -95,14 +97,6 @@ export abstract class Game {
   public keyUp(event: KeyboardEvent): void {}
   public fixedUpdate(dt: number): void {}
   public cleanup(): void {}
-}
-
-export enum GameCatagories {
-  OnePlayer,
-  TwoPlayer,
-  Strategy,
-  Puzzle,
-  Skill,
 }
 
 export type GameOptions = {

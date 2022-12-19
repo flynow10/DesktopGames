@@ -1,12 +1,15 @@
 $bg: "bg";
 $text: "text";
+$accent: "accent";
 $themes: (
   light: (
     bg: #ddd,
     text: #333,
+    accent: $indigo-200,
   ),
   dark: (
     bg: #252e39,
     text: #eee,
+    accent: $blue-600,
   ),
 );

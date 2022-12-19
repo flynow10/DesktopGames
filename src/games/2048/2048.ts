@@ -1,14 +1,7 @@
 import { CanvasGame } from "../../core/game/CanvasGame";
-import { GameCatagories, GameMetadata } from "../Game";
 import { TwentyFourtyEightScene } from "./2048Scene";
 
 export class TwentyFourtyEight extends CanvasGame {
-  public static Metadata: GameMetadata = {
-    name: "2048",
-    catagories: [GameCatagories.OnePlayer, GameCatagories.Puzzle],
-    componentType: "CenteredCanvas",
-  };
-
   public board: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   public lastBoard: number[] = [];
   public movedTiles: { start: number; end: number }[] = [];

@@ -1,4 +1,5 @@
-import { app, BrowserWindow, shell } from "electron";
+import { app, BrowserWindow, session, shell } from "electron";
+import { homedir } from "os";
 import { join } from "path";
 
 process.env.DIST_ELECTRON = join(__dirname, "..");
@@ -6,10 +7,16 @@ process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
 process.env.PUBLIC = app.isPackaged
   ? process.env.DIST
   : join(process.env.DIST_ELECTRON, "../public");
+process.env["ELECTRON_DISABLE_SECURITY_WARNINGS"] = "true";
 
 const preload = join(__dirname, "../preload/preload.js");
 const url = process.env.VITE_DEV_SERVER_URL;
 const indexHtml = join(process.env.DIST, "index.html");
+
+const reactDevtoolsExtensionPath = join(
+  homedir(),
+  "/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.27.1_0"
+);
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -37,7 +44,12 @@ const createWindow = () => {
   });
 };
 
-app.whenReady().then(createWindow);
+const ready = async () => {
+  // await session.defaultSession.loadExtension(reactDevtoolsExtensionPath);
+  createWindow();
+};
+
+app.whenReady().then(ready);
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();

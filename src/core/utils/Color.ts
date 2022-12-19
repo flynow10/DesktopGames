@@ -1,5 +1,3 @@
-import { dark } from "@/components/ThemeManager.vue";
-
 export class Color {
   private light: string;
   private dark: string;
@@ -11,7 +9,7 @@ export class Color {
   }
 
   public getColor(): string {
-    return dark.value ? this.dark : this.light;
+    return false ? this.dark : this.light;
   }
 
   public getBrightness(): number {

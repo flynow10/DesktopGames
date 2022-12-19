@@ -1,4 +1,3 @@
-import { useEventManger } from "../EventManager";
 import { CanvasWrapper } from "./internal";
 
 export class CanvasImage extends CanvasWrapper {
@@ -14,14 +13,10 @@ export class CanvasImage extends CanvasWrapper {
     setup: ((image: CanvasImage) => void) | null = null
   ) {
     super();
-    const { addEventListener } = useEventManger();
     this.canvas.width = width;
     this.canvas.height = height;
     if (setup !== null) {
       setup(this);
     }
-    addEventListener("darkModeChange", () => {
-      this.redraw();
-    });
   }
 }

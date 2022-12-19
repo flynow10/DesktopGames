@@ -1,9 +1,13 @@
 @import "functions";
+@import "colors";
 @import "theme_colors";
 @import "mixins";
 
 @import "base";
+@import "search";
+
 @import "theme_manager";
 @import "tab_bar";
 @import "page";
+@import "new_tab";
 @import "debug";

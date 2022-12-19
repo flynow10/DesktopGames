@@ -1,7 +1,5 @@
-import { Scene } from "@/core/canvas/Scene";
 import { Vector } from "@/core/utils/Vector";
 import { CanvasGame } from "../../core/game/CanvasGame";
-import { GameCatagories, GameMetadata } from "../Game";
 import { Connect4Scene } from "./Connect4Scene";
 
 export enum Connect4State {
@@ -10,11 +8,6 @@ export enum Connect4State {
 }
 
 export class Connect4 extends CanvasGame {
-  public static Metadata: GameMetadata = {
-    catagories: [GameCatagories.TwoPlayer, GameCatagories.Strategy],
-    componentType: "CenteredCanvas",
-    name: "Connect 4",
-  };
   public static ConnectionChecks: number[][][] = [
     [
       [0, 0],
