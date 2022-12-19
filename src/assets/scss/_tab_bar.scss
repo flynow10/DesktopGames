@@ -17,12 +17,12 @@
     color: color($text);
   }
 
-  & .new-tab-icon {
+  .new-tab-icon {
     transform: scale(1);
     transition: transform 100ms;
   }
   &:hover {
-    & .new-tab-icon {
+    .new-tab-icon {
       transform: scale(1.2);
     }
     @include themed() {

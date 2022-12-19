@@ -11,7 +11,7 @@
   border-radius: 100%;
   &:hover {
     @include themed() {
-      background-color: octave-change(color($bg), 2);
+      background-color: transparent(octave-change(color($bg), 2), 0.5);
     }
   }
   @include themed() {

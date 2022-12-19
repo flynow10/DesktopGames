@@ -5,3 +5,6 @@
 @function shade-color($color, $weight) {
   @return color.mix(black, $color, $weight);
 }
+@function transparent($color, $weight) {
+  @return rgba($color, $weight);
+}

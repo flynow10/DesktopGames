@@ -1,6 +1,6 @@
 import { Scene } from "@/core/canvas/Scene";
 import { Vector } from "@/core/utils/Vector";
-import { CanvasGame } from "../CanvasGame";
+import { CanvasGame } from "../../core/game/CanvasGame";
 import { GameCatagories, GameMetadata } from "../Game";
 import { Connect4Scene } from "./Connect4Scene";
 

@@ -6,26 +6,25 @@ export type Tab = {
   name: string;
 };
 
-export function createTab(type: TabType): Tab {
-  var name = "";
+export function getTabName(type: TabType): string {
   switch (type) {
     case TabType.New: {
-      name = t("new-tab");
-      break;
+      return t("new-tab");
     }
     case TabType.Settings: {
-      name = t("settings-tab");
-      break;
+      return t("settings-tab");
     }
     case TabType.Statistics: {
-      name = t("statistics-tab");
-      break;
+      return t("statistics-tab");
     }
     case TabType.Game: {
-      name = "Undefined!";
-      break;
+      return "Undefined!";
     }
   }
+}
+
+export function createTab(type: TabType): Tab {
+  var name = getTabName(type);
   return {
     id: uuid(),
     type,

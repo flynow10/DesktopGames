@@ -15,10 +15,13 @@ body {
 body {
   @include themed() {
     background-color: color($bg);
+    color: color($text);
   }
 }
 
 #root {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-flow: column;
 }

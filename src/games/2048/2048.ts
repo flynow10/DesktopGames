@@ -1,5 +1,5 @@
-import { CanvasGame } from "@/core/games/CanvasGame";
-import { GameCatagories, GameMetadata } from "@/core/games/Game";
+import { CanvasGame } from "../../core/game/CanvasGame";
+import { GameCatagories, GameMetadata } from "../Game";
 import { TwentyFourtyEightScene } from "./2048Scene";
 
 export class TwentyFourtyEight extends CanvasGame {

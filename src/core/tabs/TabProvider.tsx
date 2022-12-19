@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useReducer, useState } from "react";
-import { createTab, Tab, TabType } from "./Tab";
+import { getTabName, createTab, Tab, TabType } from "./Tab";
 
 type TabAction =
   | {
@@ -16,6 +16,11 @@ type TabAction =
   | {
       type: "update-title";
       id: string;
+    }
+  | {
+      type: "update-type";
+      id: string;
+      newType: TabType;
     };
 
 type TabList = {
@@ -46,6 +51,20 @@ export default function TabProvider(props: TabProviderProps) {
     setActiveTab(newTab.id);
   };
 
+  const updateTabType = (id: string, type?: TabType) => {
+    setTabs(
+      tabs.map((tab) => {
+        if (tab.id === id) {
+          if (type === undefined) {
+            type = tab.type;
+          }
+          return { id, type, name: getTabName(type) };
+        }
+        return { ...tab };
+      })
+    );
+  };
+
   const removeTab = (id: string) => {
     if (tabs.length > 1) {
       var newTabs = [];
@@ -74,6 +93,15 @@ export default function TabProvider(props: TabProviderProps) {
       }
       case "set-active": {
         setActiveTab(action.id);
+        break;
+      }
+      case "update-type": {
+        updateTabType(action.id, action.newType);
+        break;
+      }
+      case "update-title": {
+        updateTabType(action.id);
+        break;
       }
       default: {
         throw new Error("Unsupported action for updating tabs!");

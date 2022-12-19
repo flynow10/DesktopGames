@@ -21,6 +21,10 @@ export default defineConfig({
         find: "@/i18n",
         replacement: path.resolve(__dirname, "src/i18n/"),
       },
+      {
+        find: "@/utils",
+        replacement: path.resolve(__dirname, "src/utils/"),
+      },
     ],
   },
 });

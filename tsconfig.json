@@ -18,6 +18,7 @@
     "typeRoots": ["node_modules/@types"],
     "paths": {
       "@/core/*": ["./src/core/*"],
+      "@/utils/*": ["./src/utils/*"],
       "@/i18n/": ["./src/i18n/"]
     }
   },
