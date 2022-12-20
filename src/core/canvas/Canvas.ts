@@ -56,17 +56,5 @@ export class Canvas extends CanvasWrapper {
     return new Vector(event.clientX - rect.left, event.clientY - rect.top);
   }
 
-  public forceRedraw(): void {
-    this.onRequireRedraw.forEach((callback) => callback());
-  }
-
-  public getPauseImage(): ImageData {
-    return this.context.getImageData(0, 0, this.width, this.height);
-  }
-
-  public setPauseImage(image: ImageData): void {
-    this.context.putImageData(image, 0, 0);
-  }
-
   public cleanup(): void {}
 }

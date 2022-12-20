@@ -8,6 +8,10 @@ export class GameLoop {
   private _stop: boolean = false;
 
   public start(): void {
+    this._stop = false;
+    this._startTime = -1;
+    this.lastFixedUpdate = 0;
+    this.lastUpdate = 0;
     window.requestAnimationFrame((time) => {
       this.loop(time);
     });

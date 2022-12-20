@@ -40,7 +40,7 @@ export class SnakeScene {
   private game: Snake;
 
   public get squareSize() {
-    return this.game.canvas.width / Snake.BoardSize;
+    return this.game.canvas.shortSide / Snake.BoardSize;
   }
 
   public constructor(snake: Snake) {
@@ -48,6 +48,13 @@ export class SnakeScene {
   }
 
   public draw(canvas: Canvas, dt: number): void {
+    var widthIsShort = canvas.width <= canvas.height;
+    var halfShift = canvas.shortSide / 2;
+    if (widthIsShort) {
+      canvas.translate(0, canvas.height / 2 - halfShift);
+    } else {
+      canvas.translate(canvas.width / 2 - halfShift, 0);
+    }
     this.drawBoard(canvas);
     this.drawApple(canvas);
     this.drawSnakeBody(canvas);
@@ -57,6 +64,7 @@ export class SnakeScene {
 
   private drawMessages(canvas: Canvas) {
     if (this.game.gameState === SnakeState.Dead) {
+      canvas.resetTransform();
       canvas.setFontSize(50);
       canvas.setFontFamily("monospace");
       canvas.setTextAlign("center");

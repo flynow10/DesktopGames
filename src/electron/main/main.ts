@@ -15,7 +15,7 @@ const indexHtml = join(process.env.DIST, "index.html");
 
 const reactDevtoolsExtensionPath = join(
   homedir(),
-  "/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.27.1_0"
+  "/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.25.0_0"
 );
 
 const createWindow = () => {
@@ -45,7 +45,7 @@ const createWindow = () => {
 };
 
 const ready = async () => {
-  // await session.defaultSession.loadExtension(reactDevtoolsExtensionPath);
+  await session.defaultSession.loadExtension(reactDevtoolsExtensionPath);
   createWindow();
 };
 

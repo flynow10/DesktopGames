@@ -40,6 +40,7 @@ export class Snake extends CanvasGame {
   constructor() {
     super({ fixedUpdateStep: Snake.Speed });
     this._scene = new SnakeScene(this);
+    this.name = "Snake";
   }
 
   public generateApple(): Vector {

@@ -17,6 +17,7 @@ export class TwentyFourtyEight extends CanvasGame {
       this.createNewRandomTile() as number,
       this.createNewRandomTile() as number
     );
+    this.name = "2048";
   }
 
   createNewRandomTile() {

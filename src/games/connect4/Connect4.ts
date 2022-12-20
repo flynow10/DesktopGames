@@ -47,6 +47,7 @@ export class Connect4 extends CanvasGame {
     this.board = this.createBoard();
     this.player = 1;
     this.state = Connect4State.Playing;
+    this.name = "Connect 4";
   }
 
   private createBoard() {
@@ -84,7 +85,6 @@ export class Connect4 extends CanvasGame {
       }
       this._scene.timeSinceMove = 0;
       this.lastColumn = column;
-      console.log(this.board);
       if (this.drop(column)) {
         if (this.checkWin()) {
           this.state = Connect4State.GameOver;
@@ -132,7 +132,7 @@ export class Connect4 extends CanvasGame {
   }
 
   public getColumnFromPosition(pos: Vector): number {
-    return Math.floor(9 * (pos.x / this.canvas.width)) - 1;
+    return Math.floor(9 * (pos.x / this.canvas.shortSide)) - 1;
   }
 
   public update() {}

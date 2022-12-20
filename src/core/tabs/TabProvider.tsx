@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useReducer, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { getTabName, createTab, Tab, TabType } from "./Tab";
 
 type TabAction =
@@ -58,7 +58,7 @@ export default function TabProvider(props: TabProviderProps) {
           if (type === undefined) {
             type = tab.type;
           }
-          return { id, type, name: getTabName(type) };
+          return { id, type, name: getTabName(type, id) };
         }
         return { ...tab };
       })

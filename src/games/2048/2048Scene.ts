@@ -30,7 +30,7 @@ export class TwentyFourtyEightScene implements Scene {
   });
 
   public get squareSize() {
-    return this.game.canvas.width / 4;
+    return this.game.canvas.shortSide / 4;
   }
 
   constructor(game: TwentyFourtyEight) {

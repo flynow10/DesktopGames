@@ -3,6 +3,15 @@ import { GameLoop } from "./GameLoop";
 export abstract class Game {
   public readonly gameLoop: GameLoop = new GameLoop();
   public onPause: (() => void)[] = [];
+  public onNameChange: ((name: string) => void)[] = [];
+  private _name: string = "Undefined!";
+  public get name(): string {
+    return this._name;
+  }
+  protected set name(value: string) {
+    this._name = value;
+    this.updateName(value);
+  }
   public get paused(): boolean {
     return (
       this._gameOptions.isPauseable && (this._paused || !this._isTabVisible)
@@ -25,9 +34,6 @@ export abstract class Game {
     this.gameLoop.fixedUpdateStep = this._gameOptions.fixedUpdateStep;
     this.gameLoop.onLoop.push(this.internalUpdate.bind(this));
     this.gameLoop.onFixedLoop.push(this.internalFixedUpdate.bind(this));
-    for (const key in this.documentBoundListeners) {
-      document.addEventListener(key, this.documentBoundListeners[key]);
-    }
   }
 
   protected updateGameOptions(options: Partial<GameOptions>) {
@@ -37,9 +43,17 @@ export abstract class Game {
 
   public start(): void {
     this.gameLoop.start();
+    for (const key in this.documentBoundListeners) {
+      document.addEventListener(key, this.documentBoundListeners[key]);
+    }
+    this.updateName();
   }
   public selected(isSelected: boolean) {
     this._isTabVisible = isSelected;
+  }
+
+  private updateName(value?: string) {
+    this.onNameChange.forEach((callback) => callback(value ?? this.name));
   }
   private internalUpdate(dt: number) {
     if (!this.paused) {
@@ -90,6 +104,7 @@ export abstract class Game {
       document.removeEventListener(key, this.documentBoundListeners[key]);
     }
   }
+  public abstract attach(node: HTMLDivElement | null): void;
   public abstract draw(dt: number): void;
   public abstract update(dt: number): void;
   public restart(): void {}

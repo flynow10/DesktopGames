@@ -1,12 +1,20 @@
 import t from "@/i18n/";
 import { v4 as uuid } from "uuid";
+import { GM } from "../game/GameManager";
 export type Tab = {
   id: string;
   type: TabType;
   name: string;
 };
 
-export function getTabName(type: TabType): string {
+export enum TabType {
+  New,
+  Game,
+  Settings,
+  Statistics,
+}
+
+export function getTabName(type: TabType, id?: string): string {
   switch (type) {
     case TabType.New: {
       return t("new-tab");
@@ -18,7 +26,14 @@ export function getTabName(type: TabType): string {
       return t("statistics-tab");
     }
     case TabType.Game: {
-      return "Undefined!";
+      if (!id) {
+        return t("unnamed-game-tab");
+      }
+      var game = GM.games[id];
+      if (game) {
+        return game.name;
+      }
+      return t("game-disconnected-tab");
     }
   }
 }
@@ -30,11 +45,4 @@ export function createTab(type: TabType): Tab {
     type,
     name,
   };
-}
-
-export enum TabType {
-  New,
-  Game,
-  Settings,
-  Statistics,
 }

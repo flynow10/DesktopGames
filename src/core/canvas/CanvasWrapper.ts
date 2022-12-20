@@ -14,6 +14,14 @@ export abstract class CanvasWrapper {
     return this.context.canvas.height;
   }
 
+  public get shortSide(): number {
+    return Math.min(this.width, this.height);
+  }
+
+  public get longSide(): number {
+    return Math.max(this.width, this.height);
+  }
+
   private fontSize: number = 10;
   private fontFamily: string = "sans-serif";
   private fontStyle: string = "normal";
@@ -336,6 +344,17 @@ export abstract class CanvasWrapper {
         command: "translate",
         args: arguments,
         argCount: 2,
+      });
+    }
+  }
+
+  public resetTransform(quiet = false) {
+    this.context.resetTransform();
+    if (!quiet) {
+      this.commands.push({
+        command: "resetTransform",
+        args: arguments,
+        argCount: 0,
       });
     }
   }

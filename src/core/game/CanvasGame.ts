@@ -20,29 +20,28 @@ export abstract class CanvasGame extends Game {
   public draw(dt: number): void {
     this._canvas?.clearCommands();
     this._canvas?.reset();
-    if (this.paused) {
-      if (this.pauseData !== null) {
-        this.canvas.setPauseImage(this.pauseData);
-      }
-    } else {
-      if (this._scene !== null) {
-        this._scene.draw(this.canvas, dt);
-      }
+    const canvasElement = this.canvas.canvas;
+    canvasElement.width = canvasElement.offsetWidth;
+    canvasElement.height = canvasElement.offsetHeight;
+    if (this._scene !== null) {
+      this._scene.draw(this.canvas, dt);
     }
   }
 
-  public attach(node: { getCanvas: () => Canvas }): void {
-    this._canvas = node.getCanvas();
-    this.onPause.push(() => {
-      if (this.paused) {
-        this.pauseData = this.canvas.getPauseImage();
-      }
-    });
-    this._canvas.onRequireRedraw.push(() => {
-      if (this.paused && this.pauseData !== null) {
-        this.canvas.setPauseImage(this.pauseData);
-      }
-    });
+  private createCanvas(): [Canvas, HTMLCanvasElement] {
+    const canvasElement = document.createElement("canvas");
+    canvasElement.classList.add("game-canvas");
+    const canvas = new Canvas(canvasElement);
+    return [canvas, canvasElement];
+  }
+
+  public attach(node: HTMLDivElement | null): void {
+    if (node === null) {
+      return;
+    }
+    const [canvas, canvasElement] = this.createCanvas();
+    this._canvas = canvas;
+    node.appendChild(canvasElement);
     this.canvas.onMouseDown.push((event) => {
       if (!this.paused) {
         this.mouseDown(event);

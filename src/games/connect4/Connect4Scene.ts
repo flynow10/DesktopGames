@@ -29,7 +29,7 @@ export class Connect4Scene implements Scene {
   }
 
   get SquareSize() {
-    return this.game.canvas.width / (this.game.board[0].length + 2);
+    return this.game.canvas.shortSide / (this.game.board[0].length + 2);
   }
 
   public draw(canvas: Canvas, dt: number): void {

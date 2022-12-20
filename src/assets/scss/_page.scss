@@ -2,7 +2,11 @@
   &.hidden-page {
     display: none;
   }
+  height: 100%;
 }
 .pages {
-  overflow-y: auto;
+  overflow-y: hidden;
+  flex-grow: 1;
+  margin: 0;
+  padding: 0;
 }
