@@ -1,6 +1,7 @@
 import { SnakeScene } from "./SnakeScene";
 import { Vector } from "@/core/utils/Vector";
 import { CanvasGame } from "@/core/game/CanvasGame";
+import t from "@/i18n";
 
 export enum SnakeState {
   Starting,
@@ -40,7 +41,7 @@ export class Snake extends CanvasGame {
   constructor() {
     super({ fixedUpdateStep: Snake.Speed });
     this._scene = new SnakeScene(this);
-    this.name = "Snake";
+    this.name = t("snake-title");
   }
 
   public generateApple(): Vector {

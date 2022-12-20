@@ -1,3 +1,4 @@
+import t from "@/i18n";
 import { CanvasGame } from "../../core/game/CanvasGame";
 import { TwentyFourtyEightScene } from "./2048Scene";
 
@@ -17,7 +18,7 @@ export class TwentyFourtyEight extends CanvasGame {
       this.createNewRandomTile() as number,
       this.createNewRandomTile() as number
     );
-    this.name = "2048";
+    this.name = t("2048-title");
   }
 
   createNewRandomTile() {

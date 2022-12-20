@@ -3,6 +3,7 @@ import { CanvasImage } from "@/core/canvas/CanvasImage";
 import { Scene } from "@/core/canvas/Scene";
 import { Color } from "@/core/utils/Color";
 import { Vector } from "@/core/utils/Vector";
+import t from "@/i18n";
 import { Connect4, Connect4State } from "./Connect4";
 
 export class Connect4Scene implements Scene {
@@ -99,7 +100,7 @@ export class Connect4Scene implements Scene {
       canvas.fillText(
         canvas.width / 2,
         canvas.height / 2,
-        "Gameover!",
+        t("game-over"),
         new Color("#fff")
       );
     }

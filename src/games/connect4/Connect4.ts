@@ -1,4 +1,5 @@
 import { Vector } from "@/core/utils/Vector";
+import t from "@/i18n";
 import { CanvasGame } from "../../core/game/CanvasGame";
 import { Connect4Scene } from "./Connect4Scene";
 
@@ -47,7 +48,7 @@ export class Connect4 extends CanvasGame {
     this.board = this.createBoard();
     this.player = 1;
     this.state = Connect4State.Playing;
-    this.name = "Connect 4";
+    this.name = t("connect4-title");
   }
 
   private createBoard() {

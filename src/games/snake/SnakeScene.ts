@@ -1,6 +1,7 @@
 import { CanvasImage } from "@/core/canvas/internal";
 import { Canvas } from "@/core/canvas/internal";
 import { Color } from "@/core/utils/Color";
+import t from "@/i18n";
 import { Snake, SnakeState } from "./Snake";
 
 export class SnakeScene {
@@ -72,7 +73,7 @@ export class SnakeScene {
       canvas.fillText(
         this.game.canvas.width / 2,
         this.game.canvas.height / 2,
-        "Game Over",
+        t("game-over"),
         new Color("#111", "#eee")
       );
     }

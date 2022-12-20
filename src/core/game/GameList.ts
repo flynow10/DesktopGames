@@ -1,6 +1,7 @@
 import { TwentyFourtyEight } from "@/games/2048/2048";
 import { Connect4 } from "@/games/connect4/Connect4";
 import { Snake } from "@/games/snake/Snake";
+import t from "@/i18n";
 import MiniSearch from "minisearch";
 import { Game } from "./Game";
 export type GameIgniter = {
@@ -12,19 +13,19 @@ export type GameIgniter = {
 
 const snake: GameIgniter = {
   id: "snake",
-  name: "Snake",
+  name: t("snake-title"),
   game: Snake,
 };
 
 const connect4: GameIgniter = {
   id: "connect4",
-  name: "Connect 4",
+  name: t("connect4-title"),
   game: Connect4,
 };
 
 const twentyFourtyEight: GameIgniter = {
   id: "2048",
-  name: "2048",
+  name: t("2048-title"),
   game: TwentyFourtyEight,
 };
 
