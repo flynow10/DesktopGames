@@ -1,6 +1,7 @@
-import { app, BrowserWindow, session, shell } from "electron";
+import { app, BrowserWindow, Menu, session, shell } from "electron";
 import { homedir } from "os";
 import { join } from "path";
+import { menu } from "./menu/menu";
 
 process.env.DIST_ELECTRON = join(__dirname, "..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
@@ -46,6 +47,7 @@ const createWindow = () => {
 
 const ready = async () => {
   await session.defaultSession.loadExtension(reactDevtoolsExtensionPath);
+  Menu.setApplicationMenu(menu);
   createWindow();
 };
 

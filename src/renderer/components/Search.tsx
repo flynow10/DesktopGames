@@ -1,3 +1,4 @@
+import t from "@/i18n";
 import { useRef } from "react";
 
 export interface SearchProps {
@@ -10,7 +11,7 @@ export default function Search(props: SearchProps) {
       ref={inputRef}
       type="text"
       className="search"
-      placeholder="Search"
+      placeholder={t("search-placeholder")}
       onChange={() => props.onSearch((inputRef.current ?? { value: "" }).value)}
     />
   );

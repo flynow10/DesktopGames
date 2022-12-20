@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { getTabName, createTab, Tab, TabType } from "./Tab";
 
 type TabAction =
@@ -21,6 +27,12 @@ type TabAction =
       type: "update-type";
       id: string;
       newType: TabType;
+    }
+  | {
+      type: "next";
+    }
+  | {
+      type: "previous";
     };
 
 type TabList = {
@@ -80,6 +92,16 @@ export default function TabProvider(props: TabProviderProps) {
       setTabs(newTabs);
     }
   };
+  const changeTabs = (indexAddition: number) => {
+    var currentTab = tabs.findIndex((tab) => tab.id === activeTab);
+    var nextTab = (currentTab + indexAddition) % tabs.length;
+    if (nextTab < 0) {
+      nextTab = tabs.length - 1;
+    }
+    if (nextTab < tabs.length) {
+      setActiveTab(tabs[nextTab].id);
+    }
+  };
 
   const update = (action: TabAction) => {
     switch (action.type) {
@@ -95,6 +117,14 @@ export default function TabProvider(props: TabProviderProps) {
         setActiveTab(action.id);
         break;
       }
+      case "next": {
+        changeTabs(1);
+        break;
+      }
+      case "previous": {
+        changeTabs(-1);
+        break;
+      }
       case "update-type": {
         updateTabType(action.id, action.newType);
         break;
@@ -108,6 +138,27 @@ export default function TabProvider(props: TabProviderProps) {
       }
     }
   };
+
+  useEffect(() => {
+    window.eShortcuts.addShortcutListener("new-tab", () => {
+      update({ type: "new" });
+    });
+    window.eShortcuts.addShortcutListener("next-tab", () => {
+      update({ type: "next" });
+    });
+    window.eShortcuts.addShortcutListener("previous-tab", () => {
+      update({ type: "previous" });
+    });
+    window.eShortcuts.addShortcutListener("close-tab", () => {
+      update({ type: "remove", id: activeTab });
+    });
+    return () => {
+      window.eShortcuts.removeShortcutListeners("new-tab");
+      window.eShortcuts.removeShortcutListeners("next-tab");
+      window.eShortcuts.removeShortcutListeners("previous-tab");
+      window.eShortcuts.removeShortcutListeners("close-tab");
+    };
+  }, [tabs, activeTab]);
 
   return (
     <TabContext.Provider

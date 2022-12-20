@@ -6,9 +6,6 @@ export default function Debug() {
   var { update, activeTab } = useContext(TabContext);
   return (
     <div className="debug">
-      <button className="debug-button" onClick={() => update({ type: "new" })}>
-        New Tab
-      </button>
       <button
         className="debug-button"
         onClick={() =>
