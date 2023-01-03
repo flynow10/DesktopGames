@@ -1,11 +1,13 @@
 import { TabContext } from "@/core/tabs/TabProvider";
-import { ReactNode, useContext } from "react";
+import { createContext, useContext } from "react";
 import { TabType } from "@/core/tabs/Tab";
 import NewTab from "./new-tab/NewTab";
 import classNames from "classnames";
 import GamePage from "./games/GamePage";
 import Settings from "./settings/Settings";
 import PassThroughProps from "../utils/PassThroughProps";
+
+export const PageContext = createContext("");
 
 export default function PageDisplay() {
   const { tabs, activeTab: activeTabId } = useContext(TabContext);
@@ -30,9 +32,11 @@ export default function PageDisplay() {
       }
     }
     return (
-      <Page isVisible={tab.id === activeTabId} key={tab.id}>
-        {component}
-      </Page>
+      <PageContext.Provider value={tab.id}>
+        <Page isVisible={tab.id === activeTabId} key={tab.id}>
+          {component}
+        </Page>
+      </PageContext.Provider>
     );
   });
   return <div className="pages">{tabComponents}</div>;

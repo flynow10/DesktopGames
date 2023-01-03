@@ -30,7 +30,7 @@ export default function Settings() {
           </button>{" "}
           Settings
         </h1>
-        {catagoryJSX}
+        <form>{catagoryJSX}</form>
       </div>
     </div>
   );
