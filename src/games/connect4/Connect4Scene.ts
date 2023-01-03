@@ -36,6 +36,13 @@ export class Connect4Scene implements Scene {
   public draw(canvas: Canvas, dt: number): void {
     this.timeSinceMove += dt;
     canvas.save();
+    var widthIsShort = canvas.width <= canvas.height;
+    var halfShift = canvas.shortSide / 2;
+    if (widthIsShort) {
+      canvas.translate(0, canvas.height / 2 - halfShift);
+    } else {
+      canvas.translate(canvas.width / 2 - halfShift, 0);
+    }
     // canvas.fillRect(
     //   0,
     //   0,

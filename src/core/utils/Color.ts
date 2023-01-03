@@ -1,15 +1,19 @@
+import { SettingsManager } from "../settings/SettingsManager";
+
 export class Color {
   private light: string;
   private dark: string;
 
-  constructor(light: string, dark: string | null = null) {
-    if (dark === null) dark = light;
+  private static isDarkMode = false;
+
+  constructor(light: string, dark?: string) {
+    if (!dark) dark = light;
     this.light = Color.parseColorStringToHex(light);
     this.dark = Color.parseColorStringToHex(dark);
   }
 
   public getColor(): string {
-    return false ? this.dark : this.light;
+    return Color.isDarkMode ? this.dark : this.light;
   }
 
   public getBrightness(): number {
@@ -62,6 +66,16 @@ export class Color {
   }
 
   // Static Methods
+
+  public static lerpColor(color1: Color, color2: Color, amount: number) {
+    var rgb1 = color1.getRgb(),
+      rgb2 = color2.getRgb(),
+      rr = rgb1.r + amount * (rgb2.r - rgb1.r),
+      rg = rgb1.g + amount * (rgb2.g - rgb1.g),
+      rb = rgb1.b + amount * (rgb2.b - rgb1.b);
+
+    return new Color(`rgb(${rr}, ${rg}, ${rb})`);
+  }
 
   public static getContrast(color1: Color, color2: Color): number {
     var l1 = color1.getBrightness();
@@ -132,4 +146,13 @@ export class Color {
         }
       : { r: 0, g: 0, b: 0 };
   }
+
+  public static updateDarkMode() {
+    window.eTheme.getIsDark().then((value) => {
+      Color.isDarkMode = value;
+    });
+  }
 }
+
+SettingsManager.getInstance().addSettingsChangeListener(Color.updateDarkMode);
+Color.updateDarkMode();

@@ -2,6 +2,8 @@ import { app, BrowserWindow, Menu, session, shell } from "electron";
 import { homedir } from "os";
 import { join } from "path";
 import { menu } from "./menu/menu";
+import { registerDarkModeHandler, setDarkMode } from "./settings/dark-mode";
+import { registerRendererHooks } from "./settings/settings-io";
 
 process.env.DIST_ELECTRON = join(__dirname, "..");
 process.env.DIST = join(process.env.DIST_ELECTRON, "../dist");
@@ -16,7 +18,7 @@ const indexHtml = join(process.env.DIST, "index.html");
 
 const reactDevtoolsExtensionPath = join(
   homedir(),
-  "/Library/Application Support/Google/Chrome/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.25.0_0"
+  "/Code/Applications/DesktopGames/react-devtools/"
 );
 
 const createWindow = () => {
@@ -47,7 +49,10 @@ const createWindow = () => {
 
 const ready = async () => {
   await session.defaultSession.loadExtension(reactDevtoolsExtensionPath);
+  await setDarkMode();
   Menu.setApplicationMenu(menu);
+  registerRendererHooks();
+  registerDarkModeHandler();
   createWindow();
 };
 

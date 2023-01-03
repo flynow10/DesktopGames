@@ -9,6 +9,14 @@ const macTemplate: Template = {
   submenu: [
     { role: "about" },
     { type: "separator" },
+    {
+      label: "Preferences",
+      accelerator: "CommandOrControl+,",
+      click: (menuItem, window) => {
+        window?.webContents.send("shortcut", "open-settings");
+      },
+    },
+    { type: "separator" },
     { role: "hide" },
     { role: "hideOthers" },
     { role: "unhide" },

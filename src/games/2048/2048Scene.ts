@@ -62,6 +62,13 @@ export class TwentyFourtyEightScene implements Scene {
   }
 
   public draw(canvas: Canvas, dt: number) {
+    var widthIsShort = canvas.width <= canvas.height;
+    var halfShift = canvas.shortSide / 2;
+    if (widthIsShort) {
+      canvas.translate(0, canvas.height / 2 - halfShift);
+    } else {
+      canvas.translate(canvas.width / 2 - halfShift, 0);
+    }
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < 4; j++) {
         canvas.drawImage(

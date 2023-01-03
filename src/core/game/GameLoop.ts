@@ -28,11 +28,11 @@ export class GameLoop {
       this._startTime = time;
     }
     const totalElapsed = time - this._startTime;
-    this.onLoop.forEach((method) => method(totalElapsed - this.lastUpdate));
+    const deltaTime = totalElapsed - this.lastUpdate;
+    const fixedDeltaTime = totalElapsed - this.lastFixedUpdate;
+    this.onLoop.forEach((method) => method(deltaTime));
     if (this.lastFixedUpdate + this.fixedUpdateStep <= totalElapsed) {
-      this.onFixedLoop.forEach((method) =>
-        method(totalElapsed - this.lastFixedUpdate)
-      );
+      this.onFixedLoop.forEach((method) => method(fixedDeltaTime));
       this.lastFixedUpdate = totalElapsed;
     }
     this.lastUpdate = totalElapsed;

@@ -133,7 +133,13 @@ export class Connect4 extends CanvasGame {
   }
 
   public getColumnFromPosition(pos: Vector): number {
-    return Math.floor(9 * (pos.x / this.canvas.shortSide)) - 1;
+    return (
+      Math.floor(
+        9 *
+          ((pos.x - (this.canvas.width / 2 - this.canvas.shortSide / 2)) /
+            this.canvas.shortSide)
+      ) - 1
+    );
   }
 
   public update() {}

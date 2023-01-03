@@ -4,6 +4,8 @@ import { TabType } from "@/core/tabs/Tab";
 import NewTab from "./new-tab/NewTab";
 import classNames from "classnames";
 import GamePage from "./games/GamePage";
+import Settings from "./settings/Settings";
+import PassThroughProps from "../utils/PassThroughProps";
 
 export default function PageDisplay() {
   const { tabs, activeTab: activeTabId } = useContext(TabContext);
@@ -19,6 +21,10 @@ export default function PageDisplay() {
         component = <GamePage id={tab.id} />;
         break;
       }
+      case TabType.Settings: {
+        component = <Settings />;
+        break;
+      }
       default: {
         component = <h1>Failed to find tab type!</h1>;
       }
@@ -32,7 +38,7 @@ export default function PageDisplay() {
   return <div className="pages">{tabComponents}</div>;
 }
 
-function Page(props: { isVisible: boolean; children: ReactNode }) {
+function Page(props: { isVisible: boolean } & PassThroughProps) {
   const classes = classNames("page", {
     "hidden-page": !props.isVisible,
     "visible-page": props.isVisible,

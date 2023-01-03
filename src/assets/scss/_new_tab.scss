@@ -19,11 +19,6 @@
 }
 .new-tab {
   display: flex;
-  flex-flow: row;
-  justify-content: center;
-}
-.centered-content {
-  display: flex;
   flex-flow: column;
   align-items: center;
 }
@@ -43,4 +38,23 @@
   margin: 10px;
   font-size: larger;
   font-weight: bold;
+}
+.settings-button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 10px;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  @include themed() {
+    color: color($text);
+  }
+  padding: 0.5em;
+
+  &:hover {
+    //rounded background
+    background-color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
 }

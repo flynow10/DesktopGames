@@ -9,5 +9,12 @@ declare global {
       ) => void;
       removeShortcutListeners: (shortcut: string) => void;
     };
+    eSettings: {
+      save: (settingsObject: any) => Promise<boolean>;
+      load: () => Promise<any>;
+    };
+    eTheme: {
+      getIsDark: () => Promise<boolean>;
+    };
   }
 }

@@ -10,3 +10,9 @@
   margin: 0;
   padding: 0;
 }
+
+.centered-page {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}

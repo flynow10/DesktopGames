@@ -1,3 +1,4 @@
+import TabProvider from "@/core/tabs/TabProvider";
 import Debug from "./Debug";
 import PageDisplay from "./pages/PageDisplay";
 import TabBar from "./tabs/TabBar";
@@ -8,10 +9,10 @@ export default function App() {
     debug = <Debug />;
   }
   return (
-    <>
+    <TabProvider>
       <TabBar />
       <PageDisplay />
       {debug}
-    </>
+    </TabProvider>
   );
 }

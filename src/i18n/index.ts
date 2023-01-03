@@ -13,6 +13,20 @@ const englishDictionary: Dictionary = {
   "unnamed-game-tab": "Unnamed Game",
 };
 
+const spanishDictionary: Dictionary = {
+  "2048-title": "2048",
+  "connect4-title": "Conectar 4",
+  "game-disconnected-tab": "¡Juego desconectado!",
+  "game-over": "¡Juego terminado!",
+  "new-tab": "Nueva pestaña",
+  "search-placeholder": "Búsqueda",
+  "settings-tab": "Ajustes",
+  "snake-title": "Serpiente",
+  "statistics-tab": "Estadísticas",
+  title: "Juegos de escritorio",
+  "unnamed-game-tab": "Juego sin nombre",
+};
+
 const japaneseDictionary: Dictionary = {
   "2048-title": "2048",
   "connect4-title": "接続 4",
@@ -28,5 +42,8 @@ const japaneseDictionary: Dictionary = {
 };
 export default function t(key: string): string {
   var dictionary: Dictionary = englishDictionary;
+  if (!(key in dictionary)) {
+    return "Translation Missing";
+  }
   return dictionary[key];
 }

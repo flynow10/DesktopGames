@@ -31,3 +31,21 @@ contextBridge.exposeInMainWorld("eShortcuts", {
     });
   },
 });
+
+contextBridge.exposeInMainWorld("eSettings", {
+  save: async (settingsObject: any): Promise<boolean> => {
+    return (await ipcRenderer.invoke(
+      "saveSettings",
+      settingsObject
+    )) as boolean;
+  },
+  load: async (): Promise<any> => {
+    return await ipcRenderer.invoke("loadSettings");
+  },
+});
+
+contextBridge.exposeInMainWorld("eTheme", {
+  getIsDark: async () => {
+    return (await ipcRenderer.invoke("darkMode")) as boolean;
+  },
+});
