@@ -37,8 +37,7 @@ export class SettingsManager {
   }
 
   public async updateSettings(newSettings: any) {
-    console.log(newSettings);
-    var mergedSettings = Object.assign(
+    var mergedSettings = SettingsManager.mergeDeep(
       {},
       this._getDefaultSettings(),
       await this.getSettings(),
@@ -47,30 +46,35 @@ export class SettingsManager {
     if (!this._validateSettings(mergedSettings)) {
       throw new Error("Could not update settings as they are invalid!");
     }
-    if (!(await window.eSettings.save(mergedSettings))) {
-      throw new Error("Cound not save settings to file!");
+    if (!import.meta.env.VITE_ONE_FILE) {
+      if (!(await window.eSettings.save(mergedSettings))) {
+        throw new Error("Cound not save settings to file!");
+      }
     }
     const settings = await this._loadSettings();
-    console.log(this._listeners);
-    console.log(settings);
     for (const listener of this._listeners) {
       listener(settings);
     }
   }
 
   private async _loadSettings(): Promise<any> {
-    const loadedSettings = await window.eSettings.load();
-    if (!loadedSettings) {
-      throw new Error("Settings could not be loaded!");
-    }
-    if (Object.keys(loadedSettings).length === 0) {
+    if (!import.meta.env.VITE_ONE_FILE) {
+      const loadedSettings = await window.eSettings.load();
+      if (!loadedSettings) {
+        throw new Error("Settings could not be loaded!");
+      }
+      const defaultMerged = SettingsManager.mergeDeep(
+        {},
+        this._getDefaultSettings(),
+        loadedSettings
+      );
+      if (!this._validateSettings(defaultMerged)) {
+        throw new Error("Loaded settings are not valid!");
+      }
+      this._settings = defaultMerged;
+    } else {
       this._settings = this._getDefaultSettings();
-      return;
     }
-    if (!this._validateSettings(loadedSettings)) {
-      throw new Error("Loaded settings are not valid!");
-    }
-    this._settings = loadedSettings;
     return this._settings;
   }
 
@@ -139,5 +143,26 @@ export class SettingsManager {
 
   public static getInstance(): SettingsManager {
     return this.instance || (this.instance = new this());
+  }
+
+  private static isObject(item: any) {
+    return item && typeof item === "object" && !Array.isArray(item);
+  }
+  private static mergeDeep(target: any, ...sources: any): any {
+    if (!sources.length) return target;
+    const source = sources.shift();
+
+    if (this.isObject(target) && this.isObject(source)) {
+      for (const key in source) {
+        if (this.isObject(source[key])) {
+          if (!target[key]) Object.assign(target, { [key]: {} });
+          this.mergeDeep(target[key], source[key]);
+        } else {
+          Object.assign(target, { [key]: source[key] });
+        }
+      }
+    }
+
+    return this.mergeDeep(target, ...sources);
   }
 }

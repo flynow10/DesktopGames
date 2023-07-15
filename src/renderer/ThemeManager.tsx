@@ -26,7 +26,10 @@ export default function ThemeManager(props: PassThroughProps) {
   const [dark, setDark] = useState(false);
 
   const getDarkSetting = async () => {
-    return await window.eTheme.getIsDark();
+    if (!import.meta.env.VITE_ONE_FILE) {
+      return await window.eTheme.getIsDark();
+    }
+    return false;
   };
 
   useEffect(() => {
@@ -44,7 +47,7 @@ export default function ThemeManager(props: PassThroughProps) {
     };
   }, []);
 
-  const themeClass = dark ? "theme--dark" : "theme--light";
+  const themeClass = dark ? "dark" : "light";
 
   useEffect(() => {
     document.documentElement.classList.add(themeClass);

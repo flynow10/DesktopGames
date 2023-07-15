@@ -31,13 +31,19 @@ export default function GameDisplay({
     });
   };
   return (
-    <div className="game-grid">
+    <div className="flex flex-col">
       {gameRows.map((row, index) => (
-        <div key={index} className="game-grid-row">
+        <div key={index} className="flex flex-row">
           {row.map((game) => (
-            <div key={game.id} className="game-card">
-              <span className="game-title">{game.name}</span>
-              <button onClick={() => newGame(game.id)} className="play-button">
+            <div
+              key={game.id}
+              className="flex flex-col justify-between items-center m-3 rounded-xl overflow-hidden min-w-[200px] shadow-[0_4px_8px_rgba(0,0,0,0.3)]"
+            >
+              <span className="text-lg font-bold m-3">{game.name}</span>
+              <button
+                onClick={() => newGame(game.id)}
+                className="bg-green-500  p-4 w-full mt-3 text-white hover:bg-green-700"
+              >
                 <Play />
               </button>
             </div>

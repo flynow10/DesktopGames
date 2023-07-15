@@ -2,6 +2,7 @@ type Dictionary = { [key: string]: string };
 const englishDictionary: Dictionary = {
   "2048-title": "2048",
   "connect4-title": "Connect 4",
+  "tetris-title": "Tetris",
   "game-disconnected-tab": "Game Disconnected!",
   "game-over": "Game over!",
   "new-tab": "New Tab",
@@ -15,6 +16,7 @@ const englishDictionary: Dictionary = {
 
 const spanishDictionary: Dictionary = {
   "2048-title": "2048",
+  "tetris-title": "Tetris",
   "connect4-title": "Conectar 4",
   "game-disconnected-tab": "¡Juego desconectado!",
   "game-over": "¡Juego terminado!",
@@ -29,6 +31,7 @@ const spanishDictionary: Dictionary = {
 
 const japaneseDictionary: Dictionary = {
   "2048-title": "2048",
+  "tetris-title": "テトリス",
   "connect4-title": "接続 4",
   "game-disconnected-tab": "ゲームが切断されました！",
   "game-over": "ゲームオーバー！",

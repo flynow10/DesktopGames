@@ -23,6 +23,11 @@ export const settingsSchema: SettingsSchema = {
         ],
         default: "system",
       },
+      testBool: {
+        name: "Test Boolean",
+        type: "boolean",
+        default: true,
+      },
     },
   },
 };

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="full theme--light">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -9,8 +9,10 @@
       content="script-src 'self' 'unsafe-inline';"
     />
   </head>
-  <body>
-    <div id="root"></div>
+  <body
+    class="full bg-light-background-100 dark:bg-dark-background-100 text-light-text dark:text-dark-text transition-colors overflow-hidden"
+  >
+    <div id="root" class="full"></div>
     <script type="module" src="/src/renderer/main.tsx"></script>
   </body>
 </html>

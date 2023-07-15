@@ -30,7 +30,7 @@ export abstract class CanvasGame extends Game {
 
   private createCanvas(): [Canvas, HTMLCanvasElement] {
     const canvasElement = document.createElement("canvas");
-    canvasElement.classList.add("game-canvas");
+    canvasElement.classList.add("w-full", "h-full");
     const canvas = new Canvas(canvasElement);
     return [canvas, canvasElement];
   }

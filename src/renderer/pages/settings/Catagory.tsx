@@ -15,9 +15,11 @@ export default function Catagory(props: CatagoryProps) {
     );
   });
   return (
-    <div>
-      <h2>{props.catagory.name}</h2>
-      <div className="catagory-fields">{fieldsJSX}</div>
+    <div className="catagory">
+      <h2 className="text-2xl">{props.catagory.name}</h2>
+      <div className="ml-4 pl-4 border-l-2 border-solid border-light-text dark:border-dark-text">
+        {fieldsJSX}
+      </div>
     </div>
   );
 }

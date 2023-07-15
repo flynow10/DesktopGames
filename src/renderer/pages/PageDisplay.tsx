@@ -32,20 +32,22 @@ export default function PageDisplay() {
       }
     }
     return (
-      <PageContext.Provider value={tab.id}>
-        <Page isVisible={tab.id === activeTabId} key={tab.id}>
-          {component}
-        </Page>
+      <PageContext.Provider value={tab.id} key={tab.id}>
+        <Page isVisible={tab.id === activeTabId}>{component}</Page>
       </PageContext.Provider>
     );
   });
-  return <div className="pages">{tabComponents}</div>;
+  return <div className="full overflow-y-hidden">{tabComponents}</div>;
 }
 
 function Page(props: { isVisible: boolean } & PassThroughProps) {
-  const classes = classNames("page", {
+  const classes = classNames("page", "full", {
     "hidden-page": !props.isVisible,
     "visible-page": props.isVisible,
   });
-  return <div className={classes}>{props.children}</div>;
+  return (
+    <div className={classes} hidden={!props.isVisible}>
+      {props.children}
+    </div>
+  );
 }

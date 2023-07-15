@@ -19,7 +19,7 @@ export default function GamePage({ id }: { id: string }) {
         game.internalCleanup();
       };
     }
-  }, [id]);
+  }, []);
 
   useEffect(() => {
     var game = GM.games[id];
@@ -27,6 +27,6 @@ export default function GamePage({ id }: { id: string }) {
       game.selected(activeTab === id);
     }
   }, [activeTab, id]);
-  const className = classNames("game-container", id);
+  const className = classNames("h-full", id);
   return <div ref={gameContainer} className={className}></div>;
 }

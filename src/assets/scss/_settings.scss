@@ -4,6 +4,44 @@
   min-width: 40%;
 }
 
-.catagory-fields {
-  margin: 0 0 0 2rem;
+.catagory {
+  .catagory-fields {
+    margin: 0 0 0 1rem;
+    padding: 0 0 0 1rem;
+    @include themed() {
+      border-left: solid 2px color($text);
+    }
+  }
+}
+.field {
+  margin: 1rem 0;
+  .boolean-field {
+    float: right;
+  }
+
+  .choice-field {
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    @include themed() {
+      border-left: solid 1px color($text);
+    }
+  }
+
+  .field-title {
+    display: inline;
+  }
+}
+
+.back-button {
+  background: none;
+  border: none;
+  padding: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @include themed() {
+    color: color($text);
+  }
 }

@@ -8,29 +8,28 @@ export default function TabBar() {
   const { tabs, activeTab, update } = useContext(TabContext);
 
   const tabElements = tabs.map((tab, index) => {
-    try {
-      return (
-        <CSSTransition key={tab.id} timeout={150} classNames="tab-bar-item">
-          <TabBarItem
-            active={tab.id === activeTab}
-            name={tab.name}
-            onActivate={() => update({ type: "set-active", id: tab.id })}
-            onClose={() => update({ type: "remove", id: tab.id })}
-          />
-        </CSSTransition>
-      );
-    } catch (e) {}
+    return (
+      <CSSTransition key={tab.id} timeout={150} classNames="tab-bar-item">
+        <TabBarItem
+          active={tab.id === activeTab}
+          name={tab.name}
+          id={tab.id}
+          onActivate={() => update({ type: "set-active", id: tab.id })}
+          onClose={() => update({ type: "remove", id: tab.id })}
+        />
+      </CSSTransition>
+    );
   });
 
   if (tabs.length > 1) {
     return (
-      <header className="tab-container">
+      <header className="flex flex-row shrink-0 text-light-text dark:text-dark-text">
         <TransitionGroup component={null}>{tabElements}</TransitionGroup>
         <button
           onClick={() => update({ type: "new" })}
-          className="tab-bar-new-tab"
+          className="group select-none text-center p-[revert] bg-light-background-900 dark:bg-dark-background-900"
         >
-          <Plus className="new-tab-icon" />
+          <Plus className="lucide scale-100 transition-transform group-hover:scale-125" />
         </button>
       </header>
     );

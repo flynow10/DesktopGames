@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind utilities;
+
+.full {
+  @apply w-full h-full;
+}
+
+.flex-center {
+  @apply flex flex-row justify-center;
+}
+
+.lucide {
+  @apply inline;
+}
+
+/** Tab bar **/
+.tab-bar-item-enter {
+  @apply grow-0;
+}
+.tab-bar-item-enter-active {
+  @apply grow transition-[flex-grow];
+}
+.tab-bar-item-exit {
+  @apply grow max-w-full;
+}
+.tab-bar-item-exit-active {
+  @apply transition-[flex-grow,_max-width] grow-0 max-w-0;
+}

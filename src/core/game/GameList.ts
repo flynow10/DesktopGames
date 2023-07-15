@@ -1,6 +1,7 @@
 import { TwentyFourtyEight } from "@/games/2048/2048";
 import { Connect4 } from "@/games/connect4/Connect4";
 import { Snake } from "@/games/snake/Snake";
+import { Tetris } from "@/games/tetris/Tetris";
 import t from "@/i18n";
 import MiniSearch from "minisearch";
 import { Game } from "./Game";
@@ -29,7 +30,13 @@ const twentyFourtyEight: GameIgniter = {
   game: TwentyFourtyEight,
 };
 
-export const gameIgniters = [snake, connect4, twentyFourtyEight];
+const tetris: GameIgniter = {
+  id: "tetris",
+  name: t("tetris-title"),
+  game: Tetris,
+};
+
+export const gameIgniters = [snake, connect4, twentyFourtyEight, tetris];
 
 const stopWords = [
   "a",

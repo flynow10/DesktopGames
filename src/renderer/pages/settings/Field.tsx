@@ -38,34 +38,58 @@ export default function Field(props: FieldProps) {
     };
   }, [props.fieldKey]);
 
-  switch (props.field.type) {
-    case "choice": {
-      let options = props.field.options.map((option) => {
+  const getInput = () => {
+    switch (props.field.type) {
+      case "boolean": {
         return (
-          <div key={option.value}>
-            <label htmlFor={option.value}>{option.name}</label>
+          <div className="inline-block">
+            <label htmlFor={props.fieldKey}>
+              <h3 className="text-xl">{props.field.name}</h3>
+            </label>
             <input
-              type="radio"
-              checked={value === option.value}
-              onChange={() => {
-                setSetting(props.fieldKey, option.value);
-              }}
-              id={option.value}
-              value={option.value}
+              className=""
+              type="checkbox"
+              checked={value === true}
               name={props.fieldKey}
+              id={props.fieldKey}
+              onChange={(event) => {
+                setSetting(props.fieldKey, event.target.checked);
+              }}
             />
           </div>
         );
-      });
-      return (
-        <div>
-          <h3>{props.field.name}</h3>
-          {options}
-        </div>
-      );
+      }
+      case "choice": {
+        return (
+          <>
+            <h3 className="text-xl">{props.field.name}</h3>
+            <div className="ml-2 pl-2 border-l-2 border-solid border-light-text dark:border-dark-text">
+              {props.field.options.map((option) => {
+                return (
+                  <div key={option.value}>
+                    <label htmlFor={option.value}>{option.name}</label>
+                    <input
+                      type="radio"
+                      checked={value === option.value}
+                      onChange={() => {
+                        setSetting(props.fieldKey, option.value);
+                      }}
+                      id={option.value}
+                      value={option.value}
+                      name={props.fieldKey}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        );
+      }
+
+      default: {
+        return <span>Field type not set!</span>;
+      }
     }
-    default: {
-      return <span>Field type not set!</span>;
-    }
-  }
+  };
+  return <div className="my-4">{getInput()}</div>;
 }

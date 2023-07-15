@@ -10,6 +10,8 @@ lerna-debug.log*
 node_modules
 dist
 dist-electron
+dist-one-file
+release
 react-devtools/*
 dist-ssr
 *.local

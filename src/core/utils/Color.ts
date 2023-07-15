@@ -148,11 +148,15 @@ export class Color {
   }
 
   public static updateDarkMode() {
-    window.eTheme.getIsDark().then((value) => {
-      Color.isDarkMode = value;
-    });
+    if (!import.meta.env.VITE_ONE_FILE) {
+      window.eTheme.getIsDark().then((value) => {
+        Color.isDarkMode = value;
+      });
+    }
   }
 }
 
-SettingsManager.getInstance().addSettingsChangeListener(Color.updateDarkMode);
-Color.updateDarkMode();
+if (!import.meta.env.VITE_ONE_FILE) {
+  SettingsManager.getInstance().addSettingsChangeListener(Color.updateDarkMode);
+  Color.updateDarkMode();
+}

@@ -143,30 +143,31 @@ export default function TabProvider(props: PassThroughProps) {
     },
     [activeTab, tabs]
   );
-
   useEffect(() => {
-    window.eShortcuts.addShortcutListener("new-tab", () => {
-      update({ type: "new" });
-    });
-    window.eShortcuts.addShortcutListener("next-tab", () => {
-      update({ type: "next" });
-    });
-    window.eShortcuts.addShortcutListener("previous-tab", () => {
-      update({ type: "previous" });
-    });
-    window.eShortcuts.addShortcutListener("close-tab", () => {
-      update({ type: "remove", id: activeTab });
-    });
-    window.eShortcuts.addShortcutListener("open-settings", () => {
-      update({ type: "new", tabType: TabType.Settings });
-    });
-    return () => {
-      window.eShortcuts.removeShortcutListeners("new-tab");
-      window.eShortcuts.removeShortcutListeners("next-tab");
-      window.eShortcuts.removeShortcutListeners("previous-tab");
-      window.eShortcuts.removeShortcutListeners("close-tab");
-      window.eShortcuts.removeShortcutListeners("open-settings");
-    };
+    if (!import.meta.env.VITE_ONE_FILE) {
+      window.eShortcuts.addShortcutListener("new-tab", () => {
+        update({ type: "new" });
+      });
+      window.eShortcuts.addShortcutListener("next-tab", () => {
+        update({ type: "next" });
+      });
+      window.eShortcuts.addShortcutListener("previous-tab", () => {
+        update({ type: "previous" });
+      });
+      window.eShortcuts.addShortcutListener("close-tab", () => {
+        update({ type: "remove", id: activeTab });
+      });
+      window.eShortcuts.addShortcutListener("open-settings", () => {
+        update({ type: "new", tabType: TabType.Settings });
+      });
+      return () => {
+        window.eShortcuts.removeShortcutListeners("new-tab");
+        window.eShortcuts.removeShortcutListeners("next-tab");
+        window.eShortcuts.removeShortcutListeners("previous-tab");
+        window.eShortcuts.removeShortcutListeners("close-tab");
+        window.eShortcuts.removeShortcutListeners("open-settings");
+      };
+    }
   }, [tabs, activeTab, update]);
 
   return (
