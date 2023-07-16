@@ -1,7 +1,7 @@
 import { TabContext } from "@/core/tabs/TabProvider";
 import classNames from "classnames";
 import { X } from "lucide-react";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 export interface TabBarItemProps {
   active: boolean;
@@ -47,7 +47,7 @@ export default function TabBarItem({
           }}
           className="float-right p-[revert] rounded-lg hover:bg-light-background-500 dark:hover:bg-dark-background-500"
         >
-          <X size={10} className="align-baseline" />
+          <X className="align-baseline" />
         </button>
       )}
     </div>

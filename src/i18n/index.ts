@@ -12,6 +12,7 @@ const englishDictionary: Dictionary = {
   "statistics-tab": "Statistics",
   title: "Desktop Games",
   "unnamed-game-tab": "Unnamed Game",
+  "maze-title": "Maze",
 };
 
 const spanishDictionary: Dictionary = {
@@ -27,6 +28,7 @@ const spanishDictionary: Dictionary = {
   "statistics-tab": "Estadísticas",
   title: "Juegos de escritorio",
   "unnamed-game-tab": "Juego sin nombre",
+  "maze-title": "Laberinto",
 };
 
 const japaneseDictionary: Dictionary = {
@@ -42,6 +44,7 @@ const japaneseDictionary: Dictionary = {
   "statistics-tab": "統計",
   title: "デスクトップゲーム",
   "unnamed-game-tab": "名前のないゲーム",
+  "maze-title": "迷路",
 };
 export default function t(key: string): string {
   var dictionary: Dictionary = englishDictionary;
