@@ -28,7 +28,7 @@
     "@types/react-dom": "^18.2.1",
     "@vitejs/plugin-react": "^2.2.0",
     "autoprefixer": "^10.4.13",
-    "electron": "^22.0.0",
+    "electron": "^25.3.2",
     "electron-builder": "^23.6.0",
     "eslint": "^8.39.0",
     "eslint-config-react-app": "^7.0.1",
